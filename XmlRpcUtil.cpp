@@ -11,6 +11,7 @@
 
 #include "XmlRpc.h"
 
+
 using namespace XmlRpc;
 
 
@@ -89,7 +90,8 @@ void XmlRpcUtil::error(const char* fmt, ...)
   char buf[1024];
   vsnprintf(buf,sizeof(buf)-1,fmt,va);
   buf[sizeof(buf)-1] = 0;
-  XmlRpcErrorHandler::getErrorHandler()->error(buf);
+  std::string bufstr(buf);
+  XmlRpcErrorHandler::getErrorHandler()->error(bufstr);
 }
 
 

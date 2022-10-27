@@ -3,12 +3,17 @@
 
 #include "XmlRpcSocket.h"
 #include "XmlRpc.h"
+#include "ErrConnect.h"
+#include "XmlRpcException.h"
+
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
 #include <string.h>
-
+#include <cstring>
+#include <iostream>
 
 using namespace XmlRpc;
 
@@ -24,8 +29,7 @@ const char XmlRpcClient::PARAM_ETAG[] =  "</param>";
 const char XmlRpcClient::REQUEST_END[] = "</methodCall>\r\n";
 const char XmlRpcClient::METHODRESPONSE_TAG[] = "<methodResponse>";
 const char XmlRpcClient::FAULT_TAG[] = "<fault>";
-
-
+enum cmdcli{help,do_connect,setupconnect};
 
 XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
 {
@@ -45,11 +49,76 @@ XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
   setKeepOpen();
 }
 
+XmlRpcClient::XmlRpcClient(){
+	
+	_uri = "/RPC2";
+	_connectionState = NO_CONNECTION;
+	_executing = false;
+	_eof = false;
+	
+	_host = "vacio";
+	
+	// Default to keeping the connection open until an explicit close is done
+	setKeepOpen();
+}
 
 XmlRpcClient::~XmlRpcClient()
 {
 }
 
+
+	
+void XmlRpcClient::interpreta(std::string cmd){
+	if(cmd.length() > 0){
+		if( cmd.at(0) == 's'  && cmd.at(1)=='v'){
+			cmd = cmd.substr(2,cmd.length());
+			std::string noArgsstr = "0";
+			for(size_t i = 0 ; i < cmd.length(); i++){
+				if(isspace(cmd[i])){
+					noArgsstr = cmd.substr(i,cmd.length());	
+					cmd = cmd.substr(0,i);
+				}
+			}
+			XmlRpcValue* noArgs;
+			
+			if(noArgsstr.at(0) != '0'){
+				noArgs = new XmlRpcValue(noArgsstr);
+			}else{
+				noArgs = new XmlRpcValue();
+			}
+			
+			try{
+				XmlRpcValue result;
+				this->execute(cmd.c_str(), *noArgs, result);
+				std::cout <<  result << "\n";
+			}catch(XmlRpcException ex){
+				std::cout << ex.getMessage() << "\n";
+				
+			}
+			
+		}
+		else{
+			cmdcli cmdenum;
+			cmdint = std::stoi(cmd);
+			try{
+				switch (cmdnum){
+					case 0:
+						this -> clhelp();
+						break;
+					default:
+						std::cout << "Comando no reconocido\n";
+						break;
+				}
+			}catch(XmlRpcException ex){
+				std::cout << ex.getMessage() << "\n";
+				
+			}
+		}
+	}
+}
+void XmlRpcClient::clhelp(){
+	std::cout << "execute - setupConnection - doConnect\n";
+}
 // Close the owned fd
 void 
 XmlRpcClient::close()
@@ -115,12 +184,15 @@ XmlRpcClient::handleEvent(unsigned eventType)
 {
   if (eventType == XmlRpcDispatch::Exception)
   {
-    if (_connectionState == WRITE_REQUEST && _bytesWritten == 0)
-      XmlRpcUtil::error("Error in XmlRpcClient::handleEvent: could not connect to server (%s).", 
-                       XmlRpcSocket::getErrorMsg().c_str());
-    else
+    if (_connectionState == WRITE_REQUEST && _bytesWritten == 0){
+		_host = "vacio";
+		XmlRpcUtil::error("Error in XmlRpcClient::handleEvent: could not connect to server (%s).", 
+							    XmlRpcSocket::getErrorMsg().c_str());
+		
+    }else{
       XmlRpcUtil::error("Error in XmlRpcClient::handleEvent (state %d): %s.", 
                         _connectionState, XmlRpcSocket::getErrorMsg().c_str());
+	}
     return 0;
   }
 
@@ -143,6 +215,19 @@ XmlRpcClient::handleEvent(unsigned eventType)
 bool 
 XmlRpcClient::setupConnection()
 {
+	if(_host == "vacio"){
+		std::string host;
+		int port;
+		std::cout << "Ingrese direccion IP del servidor " ;
+		std::cin >> host;
+		std::cout << "Ingrese puerto del servidor " ;
+		std::cin >> port;
+		XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port);
+	
+	   _host = host;
+	   _port = port;
+	}
+	
   // If an error occurred last time through, or if the server closed the connection, close our end
   if ((_connectionState != NO_CONNECTION && _connectionState != IDLE) || _eof)
     close();
@@ -168,9 +253,11 @@ XmlRpcClient::setupConnection()
 bool 
 XmlRpcClient::doConnect()
 {
+
   int fd = XmlRpcSocket::socket();
   if (fd < 0)
   {
+	_host = "vacio";
     XmlRpcUtil::error("Error in XmlRpcClient::doConnect: Could not create socket (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
@@ -189,10 +276,11 @@ XmlRpcClient::doConnect()
   if ( ! XmlRpcSocket::connect(fd, _host, _port))
   {
     this->close();
+	_host = "vacio";
     XmlRpcUtil::error("Error in XmlRpcClient::doConnect: Could not connect to server (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
-
+ 
   return true;
 }
 

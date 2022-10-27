@@ -1,6 +1,8 @@
 
 #include "XmlRpcSocket.h"
 #include "XmlRpcUtil.h"
+#include <iostream>
+
 
 #ifndef MAKEDEPEND
 #define _WINDOWS
@@ -56,7 +58,7 @@ static void initWinSock()
 static inline bool
 nonFatalError()
 {
-  int err = XmlRpcSocket::getError();
+  int err = XmlRpcSocket::getError();  
   return (err == EINPROGRESS || err == EAGAIN || err == EWOULDBLOCK || err == EINTR);
 }
 
@@ -159,7 +161,9 @@ XmlRpcSocket::connect(int fd, std::string& host, int port)
 
   // For asynch operation, this will return EWOULDBLOCK (windows) or
   // EINPROGRESS (linux) and we just need to wait for the socket to be writable...
+  
   int result = ::connect(fd, (struct sockaddr *)&saddr, sizeof(saddr));
+  
   return result == 0 || nonFatalError();
 }
 
@@ -221,6 +225,7 @@ XmlRpcSocket::nbWrite(int fd, std::string& s, int *bytesSoFar)
     } else if (nonFatalError()) {
       wouldBlock = true;
     } else {
+
       return false;   // Error
     }
   }

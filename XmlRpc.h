@@ -31,6 +31,8 @@
 #include "XmlRpcServerMethod.h"
 #include "XmlRpcValue.h"
 #include "XmlRpcUtil.h"
+#include "ErrConnect.h"
+#include <iostream>
 
 namespace XmlRpc {
 
@@ -47,7 +49,9 @@ namespace XmlRpc {
     { _errorHandler = eh; }
 
     //! Report an error. Custom error handlers should define this method.
-    virtual void error(const char* msg) = 0;
+    virtual void error(std::string msg){
+		throw XmlRpcException(msg);
+	}
 
   protected:
     static XmlRpcErrorHandler* _errorHandler;

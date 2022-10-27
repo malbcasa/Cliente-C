@@ -15,6 +15,7 @@
 
 #include "XmlRpcDispatch.h"
 #include "XmlRpcSource.h"
+#include <limits>
 
 namespace XmlRpc {
 
@@ -41,7 +42,8 @@ namespace XmlRpc {
     //!  @param port The port on the remote machine where the server is listening
     //!  @param uri  An optional string to be sent as the URI in the HTTP GET header
     XmlRpcClient(const char* host, int port, const char* uri=0);
-
+	XmlRpcClient();
+	
     //! Destructor
     virtual ~XmlRpcClient();
 
@@ -60,7 +62,8 @@ namespace XmlRpc {
     //! Returns true if the result of the last execute() was a fault response.
     bool isFault() const { return _isFault; }
 
-
+	void interpreta (std::string cmd);
+	void clhelp();
     // XmlRpcSource interface implementation
     //! Close the connection
     virtual void close();
@@ -72,9 +75,9 @@ namespace XmlRpc {
 
   protected:
     // Execution processing helpers
-    virtual bool doConnect();
+    
     virtual bool setupConnection();
-
+	virtual bool doConnect();
     virtual bool generateRequest(const char* method, XmlRpcValue const& params);
     virtual std::string generateHeader(std::string const& body);
     virtual bool writeRequest();
