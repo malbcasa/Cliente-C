@@ -63,7 +63,7 @@ namespace XmlRpc {
     bool isFault() const { return _isFault; }
 
 	void interpreta (std::string cmd);
-	void clhelp();
+	void clhelp() ;
     // XmlRpcSource interface implementation
     //! Close the connection
     virtual void close();

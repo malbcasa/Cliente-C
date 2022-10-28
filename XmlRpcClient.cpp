@@ -3,7 +3,6 @@
 
 #include "XmlRpcSocket.h"
 #include "XmlRpc.h"
-#include "ErrConnect.h"
 #include "XmlRpcException.h"
 
 
@@ -14,6 +13,8 @@
 #include <string.h>
 #include <cstring>
 #include <iostream>
+#include <vector>
+#include <map>
 
 using namespace XmlRpc;
 
@@ -29,12 +30,14 @@ const char XmlRpcClient::PARAM_ETAG[] =  "</param>";
 const char XmlRpcClient::REQUEST_END[] = "</methodCall>\r\n";
 const char XmlRpcClient::METHODRESPONSE_TAG[] = "<methodResponse>";
 const char XmlRpcClient::FAULT_TAG[] = "<fault>";
-enum cmdcli{help,do_connect,setupconnect};
+const std::vector <std::string> comands{"clhelp","setupConnection","close","exit"};
+
 
 XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
 {
   XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port);
-
+  std::cout << "\n\n**********Bienvenido a Veneris Client ®**********\n" ;
+  std::cout << "Lista de comandos del cliente disponibles\n";
   _host = host;
   _port = port;
   if (uri)
@@ -50,7 +53,8 @@ XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
 }
 
 XmlRpcClient::XmlRpcClient(){
-	
+	std::cout << "\n\n**********Bienvenido a Veneris Client ®**********\n" ;
+	std::cout << "Lista de comandos del cliente disponibles\n";
 	_uri = "/RPC2";
 	_connectionState = NO_CONNECTION;
 	_executing = false;
@@ -69,13 +73,14 @@ XmlRpcClient::~XmlRpcClient()
 
 	
 void XmlRpcClient::interpreta(std::string cmd){
+	
 	if(cmd.length() > 0){
 		if( cmd.at(0) == 's'  && cmd.at(1)=='v'){
 			cmd = cmd.substr(2,cmd.length());
 			std::string noArgsstr = "0";
 			for(size_t i = 0 ; i < cmd.length(); i++){
 				if(isspace(cmd[i])){
-					noArgsstr = cmd.substr(i,cmd.length());	
+					noArgsstr = cmd.substr(i+1,cmd.length());	
 					cmd = cmd.substr(0,i);
 				}
 			}
@@ -91,33 +96,39 @@ void XmlRpcClient::interpreta(std::string cmd){
 				XmlRpcValue result;
 				this->execute(cmd.c_str(), *noArgs, result);
 				std::cout <<  result << "\n";
+				//std::cout.clear();
+				//std::cin.ignore(500,'\n');
+				//std::cin.ignore(500,'\n');
+				
 			}catch(XmlRpcException ex){
-				std::cout << ex.getMessage() << "\n";
+				std::cout << ex.getMessage() << "\n" ;
 				
 			}
 			
 		}
 		else{
-			cmdcli cmdenum;
-			cmdint = std::stoi(cmd);
 			try{
-				switch (cmdnum){
-					case 0:
-						this -> clhelp();
-						break;
-					default:
-						std::cout << "Comando no reconocido\n";
-						break;
+				if (cmd == "clhelp"){
+					this -> clhelp();
+				}else if(cmd == "setupConnection"){
+					this -> setupConnection();
+				}else if(cmd == "close"){
+					this -> close();
+				}else{
+					std::cout << "Llegue\n";
+					throw("Comando no reconocido\n");
 				}
-			}catch(XmlRpcException ex){
-				std::cout << ex.getMessage() << "\n";
-				
+			}catch(std::string s){
+				std::cout << s; 
 			}
 		}
 	}
 }
 void XmlRpcClient::clhelp(){
-	std::cout << "execute - setupConnection - doConnect\n";
+	for (int i = 0; i < comands.size() ; i++){
+		std::cout << comands.at(i) << "\n";
+	}
+	
 }
 // Close the owned fd
 void 
@@ -215,6 +226,7 @@ XmlRpcClient::handleEvent(unsigned eventType)
 bool 
 XmlRpcClient::setupConnection()
 {
+	
 	if(_host == "vacio"){
 		std::string host;
 		int port;

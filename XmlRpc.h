@@ -31,7 +31,6 @@
 #include "XmlRpcServerMethod.h"
 #include "XmlRpcValue.h"
 #include "XmlRpcUtil.h"
-#include "ErrConnect.h"
 #include <iostream>
 
 namespace XmlRpc {

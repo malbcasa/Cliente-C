@@ -15,13 +15,18 @@ int main(int argc, char* argv[])
 	std::string cmd;
 	XmlRpcClient* c;
 	c = new XmlRpcClient();
-	std::cout << "Cliente operativo a la espera de comandos (0 para info sobre los comandos del cliente)\n" ;
+	c -> clhelp();
+	
 	
 	while(on){
 		std::cout << "(esperando comando...)\n";
-		std::getline(std::cin,cmd);
+		std::getline(std::cin,cmd);		
+		if(cmd=="exit"){
+			on = false;
+			break;
+		}
 		c->interpreta(cmd);
-		std::cin.ignore(500,'\n');
+
 	}
 		
 	
