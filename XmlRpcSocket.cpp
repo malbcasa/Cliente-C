@@ -1,11 +1,12 @@
 
 #include "XmlRpcSocket.h"
 #include "XmlRpcUtil.h"
+#include "XmlRpcClient.h"
 #include <iostream>
 
-
-#ifndef MAKEDEPEND
 #define _WINDOWS
+#ifndef MAKEDEPEND
+
 #if defined(_WINDOWS)
 # include <stdio.h>
 # include <winsock2.h>
@@ -73,9 +74,11 @@ XmlRpcSocket::socket()
 
 
 void
-XmlRpcSocket::close(int fd)
+XmlRpcSocket::close(int fd,int verbosity)
 {
-  XmlRpcUtil::log(4, "XmlRpcSocket::close: fd %d.", fd);
+	if(verbosity > 0){
+		XmlRpcUtil::log(4, "XmlRpcSocket::close: fd %d.", fd); 
+	}
 #if defined(_WINDOWS)
   closesocket(fd);
 #else
@@ -182,6 +185,7 @@ XmlRpcSocket::nbRead(int fd, std::string& s, bool *eof)
   while ( ! wouldBlock && ! *eof) {
 #if defined(_WINDOWS)
     int n = recv(fd, readBuf, READ_SIZE-1, 0);
+	
 #else
     int n = read(fd, readBuf, READ_SIZE-1);
 #endif
@@ -204,7 +208,7 @@ XmlRpcSocket::nbRead(int fd, std::string& s, bool *eof)
 
 // Write text to the specified socket. Returns false on error.
 bool 
-XmlRpcSocket::nbWrite(int fd, std::string& s, int *bytesSoFar)
+XmlRpcSocket::nbWrite(int fd, std::string& s, int *bytesSoFar, int verb)
 {
   int nToWrite = int(s.length()) - *bytesSoFar;
   char *sp = const_cast<char*>(s.c_str()) + *bytesSoFar;
@@ -216,7 +220,9 @@ XmlRpcSocket::nbWrite(int fd, std::string& s, int *bytesSoFar)
 #else
     int n = write(fd, sp, nToWrite);
 #endif
-    XmlRpcUtil::log(5, "XmlRpcSocket::nbWrite: send/write returned %d.", n);
+	if(verb > 0){
+		XmlRpcUtil::log(5, "XmlRpcSocket::nbWrite: send/write returned %d.", n);
+	}
 
     if (n > 0) {
       sp += n;
@@ -225,7 +231,6 @@ XmlRpcSocket::nbWrite(int fd, std::string& s, int *bytesSoFar)
     } else if (nonFatalError()) {
       wouldBlock = true;
     } else {
-
       return false;   // Error
     }
   }

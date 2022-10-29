@@ -2,6 +2,7 @@
 #include "XmlRpcDispatch.h"
 #include "XmlRpcSource.h"
 #include "XmlRpcUtil.h"
+#include "XmlRpcClient.h"
 
 #include <math.h>
 #include <sys/timeb.h>

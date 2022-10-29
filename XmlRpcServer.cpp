@@ -5,6 +5,7 @@
 #include "XmlRpcSocket.h"
 #include "XmlRpcUtil.h"
 #include "XmlRpcException.h"
+#include "XmlRpcClient.h"
 
 
 using namespace XmlRpc;
@@ -109,7 +110,6 @@ XmlRpcServer::bindAndListen(int port, int backlog /*= 5*/)
     XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not set socket in listening mode (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
-
   XmlRpcUtil::log(2, "XmlRpcServer::bindAndListen: server listening on port %d fd %d", port, fd);
 
   // Notify the dispatcher to listen on this source when we are in work()

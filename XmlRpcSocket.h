@@ -11,6 +11,7 @@
 # include <string>
 #endif
 
+
 namespace XmlRpc {
 
   //! A platform-independent socket API.
@@ -21,7 +22,7 @@ namespace XmlRpc {
     static int socket();
 
     //! Closes a socket.
-    static void close(int socket);
+    static void close(int socket,int verb=5);
 
 
     //! Sets a stream (TCP) socket to perform non-blocking IO. Returns false on failure.
@@ -31,7 +32,7 @@ namespace XmlRpc {
     static bool nbRead(int socket, std::string& s, bool *eof);
 
     //! Write text to the specified socket. Returns false on error.
-    static bool nbWrite(int socket, std::string& s, int *bytesSoFar);
+    static bool nbWrite(int socket, std::string& s, int *bytesSoFar, int verb=0);
 
 
     // The next four methods are appropriate for servers.

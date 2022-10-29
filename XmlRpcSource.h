@@ -8,6 +8,7 @@
 # pragma warning(disable:4786)    // identifier was truncated in debug info
 #endif
 
+#include "Archivo.h"
 namespace XmlRpc {
 
   //! An RPC source represents a file descriptor to monitor
@@ -32,8 +33,9 @@ namespace XmlRpc {
     void setKeepOpen(bool b=true) { _keepOpen = b; }
 
     //! Close the owned fd. If deleteOnClose was specified at construction, the object is deleted.
-    virtual void close();
-
+    virtual void close(Archivo* flog, int verbosity);
+	virtual void close();
+	
     //! Return true to continue monitoring this source
     virtual unsigned handleEvent(unsigned eventType) = 0;
 

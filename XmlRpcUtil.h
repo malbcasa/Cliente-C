@@ -21,6 +21,8 @@
 # define strncasecmp strnicmp
 #endif
 
+
+
 namespace XmlRpc {
 
   //! Utilities for XML parsing, encoding, and decoding and message handlers.
@@ -50,10 +52,12 @@ namespace XmlRpc {
 
 
     //! Dump messages somewhere
-    static void log(int level, const char* fmt, ...);
+    static std::string log(int level, const char* fmt, ...);
 
     //! Dump error messages somewhere
     static void error(const char* fmt, ...);
+	
+	 
 
   };
 } // namespace XmlRpc

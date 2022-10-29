@@ -1,5 +1,6 @@
 
 #include "XmlRpcUtil.h"
+#include "Archivo.h"
 
 #ifndef MAKEDEPEND
 # include <ctype.h>
@@ -10,6 +11,7 @@
 #endif
 
 #include "XmlRpc.h"
+#include <fstream>
 
 
 using namespace XmlRpc;
@@ -36,7 +38,8 @@ public:
     if (level <= _verbosity) { OutputDebugString(msg); OutputDebugString("\n"); }
 #else
     if (level <= _verbosity) std::cout << msg << std::endl; 
-#endif  
+#endif
+
   }
 
 } defaultLogHandler;
@@ -69,7 +72,7 @@ void XmlRpc::setVerbosity(int level) { XmlRpcLogHandler::setVerbosity(level); }
 
  
 
-void XmlRpcUtil::log(int level, const char* fmt, ...)
+string XmlRpcUtil::log(int level, const char* fmt, ...)
 {
   if (level <= XmlRpcLogHandler::getVerbosity())
   {
@@ -79,6 +82,7 @@ void XmlRpcUtil::log(int level, const char* fmt, ...)
     vsnprintf(buf,sizeof(buf)-1,fmt,va);
     buf[sizeof(buf)-1] = 0;
     XmlRpcLogHandler::getLogHandler()->log(level, buf);
+	return buf;
   }
 }
 

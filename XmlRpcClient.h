@@ -16,6 +16,8 @@
 #include "XmlRpcDispatch.h"
 #include "XmlRpcSource.h"
 #include <limits>
+#include "Archivo.h"
+
 
 namespace XmlRpc {
 
@@ -64,6 +66,8 @@ namespace XmlRpc {
 
 	void interpreta (std::string cmd);
 	void clhelp() ;
+	Archivo* getloghandlerf();
+	int getVerbosity();
     // XmlRpcSource interface implementation
     //! Close the connection
     virtual void close();
@@ -72,6 +76,8 @@ namespace XmlRpc {
     //!  @param eventType The type of event that occurred. 
     //!  @see XmlRpcDispatch::EventType
     virtual unsigned handleEvent(unsigned eventType);
+	
+	void writelog(std::string msg);
 
   protected:
     // Execution processing helpers
@@ -120,6 +126,8 @@ namespace XmlRpc {
 
     // Event dispatcher
     XmlRpcDispatch _disp;
+	
+	Archivo* _log;
 
   };	// class XmlRpcClient
 

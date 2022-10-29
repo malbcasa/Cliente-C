@@ -1,0 +1,263 @@
+XmlRpcClient new client: host ý…, port 8891.
+XmlRpcClient::doConnect: fd 276.
+XmlRpcClient::execute: method getcomandos (_connectionState 2).
+XmlRpcClient::close: fd 276.
+XmlRpcSource::close: closing socket 276.
+XmlRpcSource::close: done closing socket 276.
+XmlRpcClient::doConnect: fd 564.
+XmlRpcClient::generateRequest: header is 115 bytes, content-length is 88.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 88
+
+<?xml version="1.0"?>
+<methodCall><methodName>getcomandos</methodName>
+</methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 203 of 203 bytes.
+XmlRpcClient::readHeader: client has read 771 bytes
+client read content length: 634
+XmlRpcClient::readResponse (read 634 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><array><data>
+<value><string>modomanual</string></value>
+<value><string>modoautomatico</string></value>
+<value><string>turnonport</string></value>
+<value><string>turnoffport</string></value>
+<value><string>setmotores</string></value>
+<value><string>setposicionlineal</string></value>
+<value><string>setangularmotor1</string></value>
+<value><string>setangularmotor2</string></value>
+<value><string>setangularmotor3</string></value>
+<value><string>setpinza</string></value>
+<value><string>reset</string></value>
+</data></array></value>
+</param>
+</params>
+</methodResponse>
+
+XmlRpcClient::execute: method getcomandos completed.
+XmlRpcClient::execute: method modomanual (_connectionState 5).
+XmlRpcClient::close: fd 564.
+XmlRpcSource::close: closing socket 564.
+XmlRpcSource::close: done closing socket 564.
+XmlRpcClient::doConnect: fd 564.
+XmlRpcClient::generateRequest: header is 116 bytes, content-length is 136.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 136
+
+<?xml version="1.0"?>
+<methodCall><methodName>modomanual</methodName>
+<params><param><value>on</value></param></params></methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 252 of 252 bytes.
+XmlRpcClient::readHeader: client has read 302 bytes
+client read content length: 165
+XmlRpcClient::readResponse (read 165 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><string>INFO: MODO MANUAL(APRENDIZAJE) ACTIVADO</string></value>
+</param>
+</params>
+</methodResponse>
+
+XmlRpcClient::execute: method modomanual completed.
+XmlRpcClient::execute: method setmotores (_connectionState 5).
+XmlRpcClient::close: fd 564.
+XmlRpcSource::close: closing socket 564.
+XmlRpcSource::close: done closing socket 564.
+XmlRpcClient::doConnect: fd 564.
+XmlRpcClient::generateRequest: header is 115 bytes, content-length is 87.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 87
+
+<?xml version="1.0"?>
+<methodCall><methodName>setmotores</methodName>
+</methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 202 of 202 bytes.
+XmlRpcClient::readHeader: client has read 491 bytes
+client read content length: 354
+XmlRpcClient::readResponse (read 354 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<fault>
+<value><struct>
+<member>
+<name>faultCode</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>faultString</name>
+<value><string>&lt;class 'TypeError'&gt;:Servidor.do_setMotores() missing 1 required positional argument: 'estado'</string></value>
+</member>
+</struct></value>
+</fault>
+</methodResponse>
+
+XmlRpcClient::execute: method setmotores completed.
+XmlRpcClient::execute: method setmotoreson (_connectionState 5).
+XmlRpcClient::close: fd 564.
+XmlRpcSource::close: closing socket 564.
+XmlRpcSource::close: done closing socket 564.
+XmlRpcClient::doConnect: fd 564.
+XmlRpcClient::generateRequest: header is 115 bytes, content-length is 89.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 89
+
+<?xml version="1.0"?>
+<methodCall><methodName>setmotoreson</methodName>
+</methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 204 of 204 bytes.
+XmlRpcClient::readHeader: client has read 456 bytes
+client read content length: 319
+XmlRpcClient::readResponse (read 319 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<fault>
+<value><struct>
+<member>
+<name>faultCode</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>faultString</name>
+<value><string>&lt;class 'Exception'&gt;:method "setmotoreson" is not supported</string></value>
+</member>
+</struct></value>
+</fault>
+</methodResponse>
+
+XmlRpcClient::execute: method setmotoreson completed.
+XmlRpcClient::execute: method setmotores (_connectionState 5).
+XmlRpcClient::close: fd 564.
+XmlRpcSource::close: closing socket 564.
+XmlRpcSource::close: done closing socket 564.
+XmlRpcClient::doConnect: fd 564.
+XmlRpcClient::generateRequest: header is 116 bytes, content-length is 136.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 136
+
+<?xml version="1.0"?>
+<methodCall><methodName>setmotores</methodName>
+<params><param><value>on</value></param></params></methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 252 of 252 bytes.
+XmlRpcClient::readHeader: client has read 302 bytes
+client read content length: 165
+XmlRpcClient::readResponse (read 165 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><string>El puerto serie no se encuentra abierto</string></value>
+</param>
+</params>
+</methodResponse>
+
+XmlRpcClient::execute: method setmotores completed.
+XmlRpcClient::execute: method turnonport (_connectionState 5).
+XmlRpcClient::close: fd 564.
+XmlRpcSource::close: closing socket 564.
+XmlRpcSource::close: done closing socket 564.
+XmlRpcClient::doConnect: fd 572.
+XmlRpcClient::generateRequest: header is 115 bytes, content-length is 87.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 87
+
+<?xml version="1.0"?>
+<methodCall><methodName>turnonport</methodName>
+</methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 202 of 202 bytes.
+XmlRpcClient::readHeader: client has read 0 bytes
+XmlRpcClient::readHeader: client has read 312 bytes
+client read content length: 175
+XmlRpcClient::readResponse (read 175 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><string>INFO: ROBOT ONLINE
+INFO: SEND G28 TO CALIBRATE
+</string></value>
+</param>
+</params>
+</methodResponse>
+
+XmlRpcClient::execute: method turnonport completed.
+XmlRpcClient::execute: method setmotores (_connectionState 5).
+XmlRpcClient::close: fd 572.
+XmlRpcSource::close: closing socket 572.
+XmlRpcSource::close: done closing socket 572.
+XmlRpcClient::doConnect: fd 572.
+XmlRpcClient::generateRequest: header is 116 bytes, content-length is 136.
+XmlRpcClient::writeRequest (attempt 1):
+POST /RPC2 HTTP/1.1
+User-Agent: XMLRPC++ 0.7
+Host: localhost:8891
+Content-Type: text/xml
+Content-length: 136
+
+<?xml version="1.0"?>
+<methodCall><methodName>setmotores</methodName>
+<params><param><value>on</value></param></params></methodCall>
+
+
+XmlRpcClient::writeRequest: wrote 252 of 252 bytes.
+XmlRpcClient::readHeader: client has read 0 bytes
+XmlRpcClient::readHeader: client has read 285 bytes
+client read content length: 148
+XmlRpcClient::readResponse (read 148 bytes)
+response:
+<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><string>INFO: STEPPERS ENABLED</string></value>
+</param>
+</params>
+</methodResponse>
+
+XmlRpcClient::execute: method setmotores completed.

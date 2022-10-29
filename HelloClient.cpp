@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
 		std::cout << "(esperando comando...)\n";
 		std::getline(std::cin,cmd);		
 		if(cmd=="exit"){
+			c->interpreta(cmd);
 			on = false;
 			break;
 		}

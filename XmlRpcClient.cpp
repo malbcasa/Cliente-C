@@ -14,7 +14,8 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
-#include <map>
+#include <fstream>
+#include "Archivo.h"
 
 using namespace XmlRpc;
 
@@ -30,13 +31,17 @@ const char XmlRpcClient::PARAM_ETAG[] =  "</param>";
 const char XmlRpcClient::REQUEST_END[] = "</methodCall>\r\n";
 const char XmlRpcClient::METHODRESPONSE_TAG[] = "<methodResponse>";
 const char XmlRpcClient::FAULT_TAG[] = "<fault>";
-const std::vector <std::string> comands{"clhelp","setupConnection","close","exit"};
+const std::vector <std::string> comands{"clhelp","setupConnection","close","exit","setlog"};
 
 
 XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
 {
-  XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port);
-  std::cout << "\n\n**********Bienvenido a Veneris Client ®**********\n" ;
+	if(XmlRpc::getVerbosity() > 0){ 
+		_log = new Archivo;
+		_log -> open();
+		_log -> write(XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port));
+	}
+  std::cout << "\n\n**********Bienvenido a Veneris Client  Â®**********\n" ;
   std::cout << "Lista de comandos del cliente disponibles\n";
   _host = host;
   _port = port;
@@ -52,7 +57,12 @@ XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
   setKeepOpen();
 }
 
+/*
+void XmlRpcClient::writelog(string msg){
+	_log -> write(msg);
+}*/
 XmlRpcClient::XmlRpcClient(){
+		
 	std::cout << "\n\n**********Bienvenido a Veneris Client ®**********\n" ;
 	std::cout << "Lista de comandos del cliente disponibles\n";
 	_uri = "/RPC2";
@@ -70,40 +80,65 @@ XmlRpcClient::~XmlRpcClient()
 {
 }
 
+Archivo* XmlRpcClient::getloghandlerf(){
+	return _log;
+}
 
+int XmlRpcClient::getVerbosity(){
+	return XmlRpc::getVerbosity();
+}
 	
 void XmlRpcClient::interpreta(std::string cmd){
 	
 	if(cmd.length() > 0){
 		if( cmd.at(0) == 's'  && cmd.at(1)=='v'){
 			cmd = cmd.substr(2,cmd.length());
-			std::string noArgsstr = "0";
+			std::string Argsstr = "0";
+			int espacios = 0;
+			
 			for(size_t i = 0 ; i < cmd.length(); i++){
 				if(isspace(cmd[i])){
-					noArgsstr = cmd.substr(i+1,cmd.length());	
-					cmd = cmd.substr(0,i);
+					if (espacios ==0){
+						Argsstr = cmd.substr(i+1,cmd.length());	
+					}
+					espacios += 1;
 				}
 			}
+			
+			cmd = cmd.substr(0,cmd.find(" \n"));
 			XmlRpcValue* noArgs;
+			XmlRpcValue multiargs;//[espacios];
+			XmlRpcValue result;
 			
-			if(noArgsstr.at(0) != '0'){
-				noArgs = new XmlRpcValue(noArgsstr);
-			}else{
-				noArgs = new XmlRpcValue();
+			if (espacios <=1){
+				if(Argsstr.at(0) != '0'){
+					noArgs = new XmlRpcValue(Argsstr);
+				}else{
+					noArgs = new XmlRpcValue();
+				}
+				try{
+					this->execute(cmd.c_str(), *noArgs, result);
+					std::cout <<  result << "\n";
+				}catch(XmlRpcException ex){
+					std::cout << ex.getMessage() << "\n" ;
+				}
+			}else if(espacios >1){
+				for(int i=0;i<espacios;i++){
+					multiargs[i]=(XmlRpcValue(stoi(Argsstr.substr(0,Argsstr.find(" "))) ));
+					Argsstr.erase(0,Argsstr.find(" ")+1);
+				}
+				
+				try{
+					this->execute(cmd.c_str(), multiargs, result);
+					std::cout <<  result << "\n";
+				}catch(XmlRpcException ex){
+					std::cout << ex.getMessage() << "\n" ;
+				}
 			}
 			
-			try{
-				XmlRpcValue result;
-				this->execute(cmd.c_str(), *noArgs, result);
-				std::cout <<  result << "\n";
-				//std::cout.clear();
-				//std::cin.ignore(500,'\n');
-				//std::cin.ignore(500,'\n');
-				
-			}catch(XmlRpcException ex){
-				std::cout << ex.getMessage() << "\n" ;
-				
-			}
+			
+			
+			
 			
 		}
 		else{
@@ -114,11 +149,18 @@ void XmlRpcClient::interpreta(std::string cmd){
 					this -> setupConnection();
 				}else if(cmd == "close"){
 					this -> close();
+				}else if(cmd == "setlog"){
+					XmlRpc::setVerbosity(5);
+					_log = new Archivo;
+					_log -> open();
+				}else if(cmd == "exit"){
+					if (XmlRpc::getVerbosity()){
+						_log ->close(_log);
+					}
 				}else{
-					std::cout << "Llegue\n";
 					throw("Comando no reconocido\n");
 				}
-			}catch(std::string s){
+			}catch(const char* s){
 				std::cout << s; 
 			}
 		}
@@ -134,11 +176,13 @@ void XmlRpcClient::clhelp(){
 void 
 XmlRpcClient::close()
 {
-  XmlRpcUtil::log(4, "XmlRpcClient::close: fd %d.", getfd());
+	if(XmlRpc::getVerbosity() > 0){ 
+		_log -> write(XmlRpcUtil::log(4, "XmlRpcClient::close: fd %d.", getfd()));
+	}
   _connectionState = NO_CONNECTION;
   _disp.exit();
   _disp.removeSource(this);
-  XmlRpcSource::close();
+  XmlRpcSource::close(_log,XmlRpc::getVerbosity());
 }
 
 
@@ -156,8 +200,9 @@ struct ClearFlagOnExit {
 bool 
 XmlRpcClient::execute(const char* method, XmlRpcValue const& params, XmlRpcValue& result)
 {
-  XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s (_connectionState %d).", method, _connectionState);
-
+	if(XmlRpc::getVerbosity() > 0){ 
+		_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s (_connectionState %d).", method, _connectionState));
+	}
   // This is not a thread-safe operation, if you want to do multithreading, use separate
   // clients for each thread. If you want to protect yourself from multiple threads
   // accessing the same client, replace this code with a real mutex.
@@ -183,7 +228,9 @@ XmlRpcClient::execute(const char* method, XmlRpcValue const& params, XmlRpcValue
   if (_connectionState != IDLE || ! parseResponse(result))
     return false;
 
-  XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s completed.", method);
+  if(XmlRpc::getVerbosity() > 0){ 
+	_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s completed.", method));
+  }
   _response = "";
   return true;
 }
@@ -234,8 +281,12 @@ XmlRpcClient::setupConnection()
 		std::cin >> host;
 		std::cout << "Ingrese puerto del servidor " ;
 		std::cin >> port;
-		XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port);
-	
+		if(XmlRpc::getVerbosity() > 0){ 
+			_log = new Archivo;
+			_log -> open();
+			_log -> write(XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port));
+		}
+		
 	   _host = host;
 	   _port = port;
 	}
@@ -273,8 +324,10 @@ XmlRpcClient::doConnect()
     XmlRpcUtil::error("Error in XmlRpcClient::doConnect: Could not create socket (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
-
-  XmlRpcUtil::log(3, "XmlRpcClient::doConnect: fd %d.", fd);
+	
+  if(XmlRpc::getVerbosity() > 0){ 
+	_log -> write(XmlRpcUtil::log(3, "XmlRpcClient::doConnect: fd %d.", fd));
+  }
   this->setfd(fd);
 
   // Don't block on connect/reads/writes
@@ -327,9 +380,10 @@ XmlRpcClient::generateRequest(const char* methodName, XmlRpcValue const& params)
   body += REQUEST_END;
 
   std::string header = generateHeader(body);
-  XmlRpcUtil::log(4, "XmlRpcClient::generateRequest: header is %d bytes, content-length is %d.", 
-                  header.length(), body.length());
-
+  if(XmlRpc::getVerbosity() > 0){ 
+	  _log->write(XmlRpcUtil::log(4, "XmlRpcClient::generateRequest: header is %d bytes, content-length is %d.", 
+                  header.length(), body.length()));
+  }
   _request = header + body;
   return true;
 }
@@ -359,17 +413,20 @@ XmlRpcClient::generateHeader(std::string const& body)
 bool 
 XmlRpcClient::writeRequest()
 {
-  if (_bytesWritten == 0)
-    XmlRpcUtil::log(5, "XmlRpcClient::writeRequest (attempt %d):\n%s\n", _sendAttempts+1, _request.c_str());
-
+  if (_bytesWritten == 0){
+	  if(XmlRpc::getVerbosity() > 0){ 
+		  _log->write(XmlRpcUtil::log(5, "XmlRpcClient::writeRequest (attempt %d):\n%s\n", _sendAttempts+1, _request.c_str()));
+		}
+  }
   // Try to write the request
-  if ( ! XmlRpcSocket::nbWrite(this->getfd(), _request, &_bytesWritten)) {
+  if ( ! XmlRpcSocket::nbWrite(this->getfd(), _request, &_bytesWritten, this->getVerbosity())) {
     XmlRpcUtil::error("Error in XmlRpcClient::writeRequest: write error (%s).",XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
-    
-  XmlRpcUtil::log(3, "XmlRpcClient::writeRequest: wrote %d of %d bytes.", _bytesWritten, _request.length());
-
+  if(XmlRpc::getVerbosity() > 0){ 
+	_log->write(XmlRpcUtil::log(3, "XmlRpcClient::writeRequest: wrote %d of %d bytes.", _bytesWritten, _request.length()));
+  }
+  
   // Wait for the result
   if (_bytesWritten == int(_request.length())) {
     _header = "";
@@ -387,12 +444,14 @@ XmlRpcClient::readHeader()
   // Read available data
   if ( ! XmlRpcSocket::nbRead(this->getfd(), _header, &_eof) ||
        (_eof && _header.length() == 0)) {
-
+	
     // If we haven't read any data yet and this is a keep-alive connection, the server may
     // have timed out, so we try one more time.
     if (getKeepOpen() && _header.length() == 0 && _sendAttempts++ == 0) {
-      XmlRpcUtil::log(4, "XmlRpcClient::readHeader: re-trying connection");
-      XmlRpcSource::close();
+		if(XmlRpc::getVerbosity() > 0){ 
+			_log->write(XmlRpcUtil::log(4, "XmlRpcClient::readHeader: re-trying connection"));
+		}
+      XmlRpcSource::close(_log,XmlRpc::getVerbosity());
       _connectionState = NO_CONNECTION;
       _eof = false;
       return setupConnection();
@@ -403,7 +462,9 @@ XmlRpcClient::readHeader()
     return false;
   }
 
-  XmlRpcUtil::log(4, "XmlRpcClient::readHeader: client has read %d bytes", _header.length());
+	   if(XmlRpc::getVerbosity() > 0){
+		   _log->write(XmlRpcUtil::log(4, "XmlRpcClient::readHeader: client has read %d bytes", _header.length()));
+	   }
 
   char *hp = (char*)_header.c_str();  // Start of header
   char *ep = hp + _header.length();   // End of string
@@ -442,7 +503,9 @@ XmlRpcClient::readHeader()
     return false;
   }
   	
-  XmlRpcUtil::log(4, "client read content length: %d", _contentLength);
+  if(XmlRpc::getVerbosity() > 0){ 
+	  _log->write(XmlRpcUtil::log(4, "client read content length: %d", _contentLength));
+  }
 
   // Otherwise copy non-header data to response buffer and set state to read response.
   _response = bp;
@@ -473,9 +536,10 @@ XmlRpcClient::readResponse()
   }
 
   // Otherwise, parse and return the result
-  XmlRpcUtil::log(3, "XmlRpcClient::readResponse (read %d bytes)", _response.length());
-  XmlRpcUtil::log(5, "response:\n%s", _response.c_str());
-
+  if(XmlRpc::getVerbosity() > 0){ 
+	  _log->write(XmlRpcUtil::log(3, "XmlRpcClient::readResponse (read %d bytes)", _response.length()));
+	  _log->write(XmlRpcUtil::log(5, "response:\n%s", _response.c_str()));
+	}
   _connectionState = IDLE;
 
   return false;    // Stop monitoring this source (causes return from work)
