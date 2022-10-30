@@ -569,13 +569,13 @@ namespace XmlRpc {
       case TypeArray:
         {
           int s = int(_value.asArray->size());
-          os << '{';
+          //os << '{';
           for (int i=0; i<s; ++i)
           {
-            if (i > 0) os << ',';
+            if (i > 0) os << '\n';
             _value.asArray->at(i).write(os);
           }
-          os << '}';
+          //os << '}';
           break;
         }
       case TypeStruct:

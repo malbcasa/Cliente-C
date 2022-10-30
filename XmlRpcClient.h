@@ -65,7 +65,9 @@ namespace XmlRpc {
     bool isFault() const { return _isFault; }
 
 	void interpreta (std::string cmd);
-	void clhelp() ;
+	void help() ;
+	void help(string comando) ;
+	void getreporte();
 	Archivo* getloghandlerf();
 	int getVerbosity();
     // XmlRpcSource interface implementation

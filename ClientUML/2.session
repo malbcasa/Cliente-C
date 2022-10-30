@@ -1,0 +1,16 @@
+window_sizes 1920 1001 450 1464 815 128
+
+diagrams
+  active  classdiagram_ref 128002 // Diagrama Clases
+    1464 815 100 A4 111 0
+end
+show_stereotypes
+selected class_ref 132226 // MethodHelp
+open
+  classview_ref 128002 // Vista Clases
+  classview_ref 128258 // Cliente C++
+  deploymentview_ref 128130 // XmlRpc
+  deploymentview_ref 128002 // Cliente C++
+  classview_ref 128130 // Cliente C++
+end
+end

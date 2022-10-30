@@ -1,0 +1,1236 @@
+format 222
+"ClientUML"
+  revision 1
+  modified_by 2 "Mauri"
+
+
+  
+  // class settings
+  default_attribute_visibility private default_relation_visibility private default_operation_visibility public
+  
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
+  
+  classcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  usecasediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes gradient none show_stereotype_properties no end
+  
+  sequencediagramsettings show_full_operations_definition no show_class_of_operation no write_horizontally yes instances_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes gradient none show_stereotype_properties no show_class_context_mode no show_msg_context_mode no end
+  
+  collaborationdiagramsettings show_full_operations_definition no show_class_of_operation no show_hierarchical_rank no write_horizontally yes instances_drawing_mode natural drawing_language uml package_name_in_tab no show_class_pack_context_mode no show_msg_context_mode no draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectdiagramsettings write_horizontally yes package_name_in_tab no show_class_pack_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  componentdiagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  deploymentdiagramsettings package_name_in_tab no show_context_mode no write_horizontally yes auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  statediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes write_label_horizontally yes show_trans_definition no draw_all_relations yes shadow yes gradient none
+   show_activities yes region_horizontally yes drawing_language uml show_stereotype_properties no end
+  
+  activitydiagramsettings package_name_in_tab no show_context_mode no show_opaque_action_definition no auto_label_position yes write_label_horizontally no draw_all_relations yes shadow yes gradient none
+   show_infonote yes drawing_language uml show_stereotype_properties no end
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white generalization_color black 
+  dpi 96
+  font_size 8
+  diagram_format A4
+
+  image_root_dir ""
+
+
+  mark_for_import
+  
+  classview 128002 "Vista Clases"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    classdiagram 128002 "Diagrama Clases"
+      classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
+      size A4
+    end
+  end
+
+  package_ref 128130 // XmlRpc
+
+  deploymentview 128002 "Cliente C++"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128002 "Archivo"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 128002 // Archivo
+      end
+    end
+
+    artifact 128130 "base64"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 128130 // base64
+      end
+    end
+
+    artifact 129666 "main"
+      stereotype "source"
+      cpp_src "int main(int argc, char* argv[])
+{
+	bool on = true;
+	std::string cmd;
+	XmlRpcClient* c;
+	c = new XmlRpcClient();
+	c -> clhelp();
+	
+	
+	while(on){
+		std::cout << \"(esperando comando...)\\n\";
+		std::getline(std::cin,cmd);		
+		if(cmd==\"exit\"){
+			c->interpreta(cmd);
+			on = false;
+			break;
+		}
+		c->interpreta(cmd);
+
+	}
+		
+	
+  return 0;
+}
+"
+      associated_elems
+      end
+    end
+
+    artifact 129794 "ClearFlagOnExit"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 131970 // ClearFlagOnExit
+      end
+    end
+
+    artifact 129922 "ListMethods"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 132098 // ListMethods
+      end
+    end
+
+    artifact 130050 "MethodHelp"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 132226 // MethodHelp
+      end
+    end
+  end
+
+  classview 128130 "Cliente C++"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 128002 "Archivo"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 128002 "nombre"
+	private explicit_type "string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128130 "contenido"
+	private explicit_type "string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128258 "lineas"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128386 "_fichero"
+	private explicit_type "ofstream"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 128002 "set_nom"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128130 "get_nom"
+	preserve_cpp_body_indent public explicit_return_type "string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128258 "set_cont"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "fname" explicit_type "string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128386 "set_cont"
+	public explicit_return_type "string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+      end
+
+      operation 128514 "open"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128642 "write"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "msg" explicit_type "string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128770 "close"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param inout name "fich" type class_ref 128002 // Archivo
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+    end
+
+    class 128130 "base64"
+      visibility package 
+      nformals 2
+      formal name "_E" type "class" explicit_default_value "char"
+        explicit_extends ""
+      formal name "_Tr" type "class" explicit_default_value "std::char_traits<_E>"
+        explicit_extends ""
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment " TEMPLATE CLASS base64_put"
+      class 128258 "byte_t"
+	visibility package stereotype "typedef" explicit_base_type "unsigned char"
+	cpp_decl "${comment}typedef ${type} ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+      end
+
+      class 128386 "char_type"
+	visibility package stereotype "typedef" explicit_base_type "_E"
+	cpp_decl "${comment}typedef ${type} ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+      end
+
+      class 128514 "traits_type"
+	visibility package stereotype "typedef" explicit_base_type "_Tr"
+	cpp_decl "${comment}typedef ${type} ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+      end
+
+      class 128642 "crlf"
+	visibility package stereotype "struct"
+	cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	operation 128898 "operator ()"
+	  stereotype "template"
+	  const cpp_inline public explicit_return_type "_OI"
+	  nparams 1
+	    param in name "_To" explicit_type "_OI"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			*_To = _Tr::to_char_type('\\r'); ++_To;
+			*_To = _Tr::to_char_type('\\n'); ++_To;
+
+			return (_To);
+		};
+"
+	  nformals 1
+	  formal name "_OI" type "class" explicit_default_value ""
+	    explicit_extends ""
+	  
+	  
+	  
+	  
+	end
+      end
+
+      class 128770 "crlfsp"
+	visibility package stereotype "struct"
+	cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	operation 129026 "operator ()"
+	  stereotype "template"
+	  const cpp_inline public explicit_return_type "_OI"
+	  nparams 1
+	    param in name "_To" explicit_type "_OI"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			*_To = _Tr::to_char_type('\\r'); ++_To;
+			*_To = _Tr::to_char_type('\\n'); ++_To;
+			*_To = _Tr::to_char_type(' '); ++_To;
+
+			return (_To);
+		};
+"
+	  nformals 1
+	  formal name "_OI" type "class" explicit_default_value ""
+	    explicit_extends ""
+	  
+	  
+	  
+	  
+	end
+      end
+
+      class 128898 "noline"
+	visibility package stereotype "struct"
+	cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	operation 129154 "operator ()"
+	  stereotype "template"
+	  const cpp_inline public explicit_return_type "_OI"
+	  nparams 1
+	    param in name "_To" explicit_type "_OI"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			return (_To);
+		};
+"
+	  nformals 1
+	  formal name "_OI" type "class" explicit_default_value ""
+	    explicit_extends ""
+	  
+	  
+	  
+	  
+	end
+      end
+
+      class 129026 "three2four"
+	visibility package stereotype "struct"
+	cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	operation 129282 "zero"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+			_data[0] = 0;
+			_data[1] = 0;
+			_data[2] = 0;
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 129410 "get_0"
+	  const cpp_inline public return_type class_ref 128258 // byte_t
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+			return _data[0];
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 129538 "get_1"
+	  const cpp_inline public return_type class_ref 128258 // byte_t
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+			return _data[1];
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 129666 "get_2"
+	  const cpp_inline public return_type class_ref 128258 // byte_t
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+			return _data[2];
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 129794 "set_0"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" type class_ref 128258 // byte_t
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[0] = _ch;
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 129922 "set_1"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" type class_ref 128258 // byte_t
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[1] = _ch;
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130050 "set_2"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" type class_ref 128258 // byte_t
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[2] = _ch;
+		};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130178 "b64_0"
+	  const cpp_inline public explicit_return_type "int"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return (_data[0] & _1111_1100) >> 2;};
+"
+	  
+	  
+	  
+	  
+	  comment " 0000 0000  1111 1111  2222 2222
+ xxxx xxxx  xxxx xxxx  xxxx xxxx
+ 0000 0011  1111 2222  2233 3333"
+	end
+
+	operation 130306 "b64_1"
+	  const cpp_inline public explicit_return_type "int"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return ((_data[0] & _0000_0011) << 4) + ((_data[1] & _1111_0000)>>4);};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130434 "b64_2"
+	  const cpp_inline public explicit_return_type "int"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return ((_data[1] & _0000_1111) << 2) + ((_data[2] & _1100_0000)>>6);};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130562 "b64_3"
+	  const cpp_inline public explicit_return_type "int"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return (_data[2] & _0011_1111);};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130690 "b64_0"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" explicit_type "int"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {_data[0] = ((_ch & _0011_1111) << 2) | (_0000_0011 & _data[0]);};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130818 "b64_1"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" explicit_type "int"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[0] = ((_ch & _0011_0000) >> 4) | (_1111_1100 & _data[0]);
+			_data[1] = ((_ch & _0000_1111) << 4) | (_0000_1111 & _data[1]);	};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 130946 "b64_2"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" explicit_type "int"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[1] = ((_ch & _0011_1100) >> 2) | (_1111_0000 & _data[1]);
+			_data[2] = ((_ch & _0000_0011) << 6) | (_0011_1111 & _data[2]);	};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 131074 "b64_3"
+	  cpp_inline public explicit_return_type "void"
+	  nparams 1
+	    param in name "_ch" explicit_type "int"
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+			_data[2] = (_ch & _0011_1111) | (_1100_0000 & _data[2]);};
+"
+	  
+	  
+	  
+	  
+	end
+
+	classrelation 128002 // _data (<directional composition>)
+	  relation 128002 *-->
+	    a role_name "_data" multiplicity "[3]" private
+	      cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	      classrelation_ref 128002 // _data (<directional composition>)
+	    b parent class_ref 128258 // byte_t
+	end
+      end
+
+      operation 131202 "put"
+	stereotype "template"
+	const cpp_inline public explicit_return_type "_II"
+	nparams 5
+	  param in name "_First" explicit_type "_II"
+	  param in name "_Last" explicit_type "_II"
+	  param in name "_To" explicit_type "_OI"
+	  param inout name "_St" explicit_type "_State"
+	  param in name "_Endl" explicit_type "_Endline"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}, ${t3} & ${p3}${v3}, ${t4} ${p4}${v4}${)}${const}${volatile}${throw}${abstract} {
+		three2four _3to4;
+		int line_octets = 0;
+
+		while(_First != _Last)
+		{
+			_3to4.zero();
+
+			// берём по 3 символа
+			_3to4.set_0(*_First);
+			_First++;
+
+			if(_First == _Last)
+			{
+				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
+				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
+				*_To = _Tr::to_char_type('='); ++_To;
+				*_To = _Tr::to_char_type('='); ++_To;
+				goto __end;
+			}
+
+			_3to4.set_1(*_First);
+			_First++;
+
+			if(_First == _Last)
+			{
+				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
+				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
+				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_2()]); ++_To;
+				*_To = _Tr::to_char_type('='); ++_To;
+				goto __end;
+			}
+
+			_3to4.set_2(*_First);
+			_First++;
+
+			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
+			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
+			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_2()]); ++_To;
+			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_3()]); ++_To;
+
+			if(line_octets == 17) // base64 позволяет длину строки не более 72 символов
+			{
+				//_To = _Endl(_To);
+        *_To = '\\n'; ++_To;
+				line_octets = 0;
+			}
+			else
+				++line_octets;
+		}
+
+		__end: ;
+
+		return (_First);
+
+	};
+"
+	nformals 4
+	formal name "_II" type "class" explicit_default_value ""
+	  explicit_extends ""
+	formal name "_OI" type "class" explicit_default_value ""
+	  explicit_extends ""
+	formal name "_State" type "class" explicit_default_value ""
+	  explicit_extends ""
+	formal name "_Endline" type "class" explicit_default_value ""
+	  explicit_extends ""
+	
+	
+	
+	
+      end
+
+      operation 131330 "get"
+	stereotype "template"
+	const cpp_inline public explicit_return_type "_II"
+	nparams 4
+	  param in name "_First" explicit_type "_II"
+	  param in name "_Last" explicit_type "_II"
+	  param in name "_To" explicit_type "_OI"
+	  param inout name "_St" explicit_type "_State"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}, ${t3} & ${p3}${v3}${)}${const}${volatile}${throw}${abstract} {
+		three2four _3to4;
+		int _Char;
+
+		while(_First != _Last)
+		{
+
+			// Take octet
+			_3to4.zero();
+
+			// -- 0 --
+			// Search next valid char... 
+			while((_Char =  _getCharType(*_First)) < 0 && _Char == _UNKNOWN_CHAR)
+			{
+				if(++_First == _Last)
+				{
+					_St |= _IOS_FAILBIT|_IOS_EOFBIT; return _First; // unexpected EOF
+				}
+			}
+
+			if(_Char == _EQUAL_CHAR){
+				// Error! First character in octet can't be '='
+				_St |= _IOS_FAILBIT; 
+				return _First; 
+			}
+			else
+				_3to4.b64_0(_Char);
+
+
+			// -- 1 --
+			// Search next valid char... 
+			while(++_First != _Last)
+				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
+					break;
+
+			if(_First == _Last)	{
+				_St |= _IOS_FAILBIT|_IOS_EOFBIT; // unexpected EOF 
+				return _First;
+			}
+
+			if(_Char == _EQUAL_CHAR){
+				// Error! Second character in octet can't be '='
+				_St |= _IOS_FAILBIT; 
+				return _First; 
+			}
+			else
+				_3to4.b64_1(_Char);
+
+
+			// -- 2 --
+			// Search next valid char... 
+			while(++_First != _Last)
+				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
+					break;
+
+			if(_First == _Last)	{
+				// Error! Unexpected EOF. Must be '=' or base64 character
+				_St |= _IOS_FAILBIT|_IOS_EOFBIT; 
+				return _First; 
+			}
+
+			if(_Char == _EQUAL_CHAR){
+				// OK!
+				_3to4.b64_2(0); 
+				_3to4.b64_3(0); 
+
+				// chek for EOF
+				if(++_First == _Last)
+				{
+					// Error! Unexpected EOF. Must be '='. Ignore it.
+					//_St |= _IOS_BADBIT|_IOS_EOFBIT;
+					_St |= _IOS_EOFBIT;
+				}
+				else 
+					if(_getCharType(*_First) != _EQUAL_CHAR)
+					{
+						// Error! Must be '='. Ignore it.
+						//_St |= _IOS_BADBIT;
+					}
+				else
+					++_First; // Skip '='
+
+				// write 1 byte to output
+				*_To = (byte_t) _3to4.get_0();
+				return _First;
+			}
+			else
+				_3to4.b64_2(_Char);
+
+
+			// -- 3 --
+			// Search next valid char... 
+			while(++_First != _Last)
+				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
+					break;
+
+			if(_First == _Last)	{
+				// Unexpected EOF. It's error. But ignore it.
+				//_St |= _IOS_FAILBIT|_IOS_EOFBIT; 
+					_St |= _IOS_EOFBIT; 
+				
+				return _First; 
+			}
+
+			if(_Char == _EQUAL_CHAR)
+			{
+				// OK!
+				_3to4.b64_3(0); 
+
+				// write to output 2 bytes
+				*_To = (byte_t) _3to4.get_0();
+				*_To = (byte_t) _3to4.get_1();
+
+				++_First; // set position to next character
+
+				return _First;
+			}
+			else
+				_3to4.b64_3(_Char);
+
+
+			// write to output 3 bytes
+			*_To = (byte_t) _3to4.get_0();
+			*_To = (byte_t) _3to4.get_1();
+			*_To = (byte_t) _3to4.get_2();
+
+			++_First;
+			
+
+		} // while(_First != _Last)
+
+		return (_First);
+	};
+"
+	nformals 3
+	formal name "_II" type "class" explicit_default_value ""
+	  explicit_extends ""
+	formal name "_OI" type "class" explicit_default_value ""
+	  explicit_extends ""
+	formal name "_State" type "class" explicit_default_value ""
+	  explicit_extends ""
+	
+	
+	
+	
+      end
+
+      operation 131458 "_getCharType"
+	const cpp_inline protected explicit_return_type "int"
+	nparams 1
+	  param in name "_Ch" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+		if(_base64Chars[62] == _Ch)
+			return 62;
+
+		if(_base64Chars[63] == _Ch)
+			return 63;
+
+		if((_base64Chars[0] <= _Ch) && (_base64Chars[25] >= _Ch))
+			return _Ch - _base64Chars[0];
+
+		if((_base64Chars[26] <= _Ch) && (_base64Chars[51] >= _Ch))
+			return _Ch - _base64Chars[26] + 26;
+
+		if((_base64Chars[52] <= _Ch) && (_base64Chars[61] >= _Ch))
+			return _Ch - _base64Chars[52] + 52;
+
+		if(_Ch == _Tr::to_int_type('='))
+			return _EQUAL_CHAR;
+
+		return _UNKNOWN_CHAR;
+	};
+"
+	
+	
+	
+	
+      end
+    end
+
+    class 131970 "ClearFlagOnExit"
+      visibility package stereotype "struct"
+      cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment " Clear the referenced flag even if exceptions or errors occur."
+      operation 152834 "ClearFlagOnExit"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param inout name "flag" explicit_type "bool"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} & ${p0}${v0}${)}${volatile}${throw}${abstract} : _flag(flag) {};
+"
+	
+	
+	
+	
+      end
+
+      operation 152962 "~ClearFlagOnExit"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract} { _flag = false; };
+"
+	
+	
+	
+	
+      end
+
+      attribute 137730 "_flag"
+	public explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} & ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    class 132098 "ListMethods"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment " List all methods available on a server"
+      classrelation 130946 // <generalisation>
+	relation 130946 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 130946 // <generalisation>
+	  b parent class_ref 130690 // XmlRpcServerMethod
+      end
+
+      operation 153090 "ListMethods"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param inout name "s" type class_ref 130562 // XmlRpcServer
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : XmlRpcServerMethod(LIST_METHODS, s) {};
+"
+	
+	
+	
+	
+      end
+
+      operation 153218 "execute"
+	cpp_inline public explicit_return_type "void"
+	nparams 2
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract} {
+    _server->listMethods(result);
+  };
+"
+	
+	
+	
+	
+      end
+
+      operation 153346 "help"
+	cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return std::string(\"List all methods available on a server as an array of strings\"); };
+"
+	
+	
+	
+	
+      end
+    end
+
+    class 132226 "MethodHelp"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment " Retrieve the help string for a named method"
+      classrelation 131074 // <generalisation>
+	relation 131074 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 131074 // <generalisation>
+	  b parent class_ref 130690 // XmlRpcServerMethod
+      end
+
+      operation 153474 "MethodHelp"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param inout name "s" type class_ref 130562 // XmlRpcServer
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : XmlRpcServerMethod(METHOD_HELP, s) {};
+"
+	
+	
+	
+	
+      end
+
+      operation 153602 "execute"
+	cpp_inline public explicit_return_type "void"
+	nparams 2
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract} {
+    if (params[0].getType() != XmlRpcValue::TypeString)
+      throw XmlRpcException(METHOD_HELP + \": Invalid argument type\");
+
+    XmlRpcServerMethod* m = _server->findMethod(params[0]);
+    if ( ! m)
+      throw XmlRpcException(METHOD_HELP + \": Unknown method name\");
+
+    result = m->help();
+  };
+"
+	
+	
+	
+	
+      end
+
+      operation 153730 "help"
+	cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return std::string(\"Retrieve the help string for a named method\"); };
+"
+	
+	
+	
+	
+      end
+    end
+  end
+
+  package_ref 128002 // Cliente C++
+end

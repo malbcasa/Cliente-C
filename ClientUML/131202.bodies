@@ -1,0 +1,140 @@
+class XmlRpcSocket
+!!!141442.cpp!!!	socket() : int
+
+  initWinSock();
+  return (int) ::socket(AF_INET, SOCK_STREAM, 0);
+!!!141570.cpp!!!	close(in fd : int, in verbosity : int = 5) : void
+
+	if(verbosity > 0){
+		XmlRpcUtil::log(4, "XmlRpcSocket::close: fd %d.", fd); 
+	}
+#if defined(_WINDOWS)
+  closesocket(fd);
+#else
+  XmlRpcSocket::close(fd);
+#endif // _WINDOWS
+!!!141698.cpp!!!	setNonBlocking(in fd : int) : bool
+
+#if defined(_WINDOWS)
+  unsigned long flag = 1;
+  return (ioctlsocket((SOCKET)fd, FIONBIO, &flag) == 0);
+#else
+  return (fcntl(fd, F_SETFL, O_NONBLOCK) == 0);
+#endif // _WINDOWS
+!!!141826.cpp!!!	nbRead(in fd : int, inout s : std::string, inout eof : bool) : bool
+
+  const int READ_SIZE = 4096;   // Number of bytes to attempt to read at a time
+  char readBuf[READ_SIZE];
+
+  bool wouldBlock = false;
+  *eof = false;
+
+  while ( ! wouldBlock && ! *eof) {
+#if defined(_WINDOWS)
+    int n = recv(fd, readBuf, READ_SIZE-1, 0);
+	
+#else
+    int n = read(fd, readBuf, READ_SIZE-1);
+#endif
+    XmlRpcUtil::log(5, "XmlRpcSocket::nbRead: read/recv returned %d.", n);
+
+    if (n > 0) {
+      readBuf[n] = 0;
+      s.append(readBuf, n);
+    } else if (n == 0) {
+      *eof = true;
+    } else if (nonFatalError()) {
+      wouldBlock = true;
+    } else {
+      return false;   // Error
+    }
+  }
+  return true;
+!!!141954.cpp!!!	nbWrite(in fd : int, inout s : std::string, inout bytesSoFar : int, in verb : int = 0) : bool
+
+  int nToWrite = int(s.length()) - *bytesSoFar;
+  char *sp = const_cast<char*>(s.c_str()) + *bytesSoFar;
+  bool wouldBlock = false;
+
+  while ( nToWrite > 0 && ! wouldBlock ) {
+#if defined(_WINDOWS)
+    int n = send(fd, sp, nToWrite, 0);
+#else
+    int n = write(fd, sp, nToWrite);
+#endif
+	if(verb > 0){
+		XmlRpcUtil::log(5, "XmlRpcSocket::nbWrite: send/write returned %d.", n);
+	}
+
+    if (n > 0) {
+      sp += n;
+      *bytesSoFar += n;
+      nToWrite -= n;
+    } else if (nonFatalError()) {
+      wouldBlock = true;
+    } else {
+      return false;   // Error
+    }
+  }
+  return true;
+!!!142082.cpp!!!	setReuseAddr(in fd : int) : bool
+
+  // Allow this port to be re-bound immediately so server re-starts are not delayed
+  int sflag = 1;
+  return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char *)&sflag, sizeof(sflag)) == 0);
+!!!142210.cpp!!!	bind(in fd : int, in port : int) : bool
+
+  struct sockaddr_in saddr;
+  memset(&saddr, 0, sizeof(saddr));
+  saddr.sin_family = AF_INET;
+  saddr.sin_addr.s_addr = htonl(INADDR_ANY);
+  saddr.sin_port = htons((u_short) port);
+  return (::bind(fd, (struct sockaddr *)&saddr, sizeof(saddr)) == 0);
+!!!142338.cpp!!!	listen(in fd : int, in backlog : int) : bool
+
+  return (::listen(fd, backlog) == 0);
+!!!142466.cpp!!!	accept(in fd : int) : int
+
+  struct sockaddr_in addr;
+#if defined(_WINDOWS)
+  int
+#else
+  socklen_t
+#endif
+    addrlen = sizeof(addr);
+
+  return (int) ::accept(fd, (struct sockaddr*)&addr, &addrlen);
+!!!142594.cpp!!!	connect(in fd : int, inout host : std::string, in port : int) : bool
+
+  struct sockaddr_in saddr;
+  memset(&saddr, 0, sizeof(saddr));
+  saddr.sin_family = AF_INET;
+
+  struct hostent *hp = gethostbyname(host.c_str());
+  if (hp == 0) return false;
+
+  saddr.sin_family = hp->h_addrtype;
+  memcpy(&saddr.sin_addr, hp->h_addr, hp->h_length);
+  saddr.sin_port = htons((u_short) port);
+
+  // For asynch operation, this will return EWOULDBLOCK (windows) or
+  // EINPROGRESS (linux) and we just need to wait for the socket to be writable...
+  
+  int result = ::connect(fd, (struct sockaddr *)&saddr, sizeof(saddr));
+  
+  return result == 0 || nonFatalError();
+!!!142722.cpp!!!	getError() : int
+
+#if defined(_WINDOWS)
+  return WSAGetLastError();
+#else
+  return errno;
+#endif
+!!!142850.cpp!!!	getErrorMsg() : std::string
+
+  return getErrorMsg(getError());
+!!!142978.cpp!!!	getErrorMsg(in error : int) : std::string
+
+  char err[60];
+  snprintf(err,sizeof(err),"error %d", error);
+  return std::string(err);

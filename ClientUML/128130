@@ -1,0 +1,4402 @@
+format 222
+"XmlRpc" // XmlRpc
+  revision 1
+  modified_by 2 "Mauri"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "C:\\Users\\Mauri\\Desktop\\Mauri\\Facu\\POO\\Unidad 3\\Integrador\\Cliente C++/"
+  cpp_src_dir "C:\\Users\\Mauri\\Desktop\\Mauri\\Facu\\POO\\Unidad 3\\Integrador\\Cliente C++/"
+  cpp_namespace "XmlRpc"
+  classview 128258 "Cliente C++"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 129154 "XmlRpcErrorHandler"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! An interface allowing custom handling of error message reporting."
+      operation 131586 "getErrorHandler"
+	class_operation cpp_inline public return_type class_ref 129154 // XmlRpcErrorHandler
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _errorHandler; };
+"
+	
+	
+	
+	
+	comment "! Returns a pointer to the currently installed error handling object."
+      end
+
+      operation 131714 "setErrorHandler"
+	class_operation cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param inout name "eh" type class_ref 129154 // XmlRpcErrorHandler
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _errorHandler = eh; };
+"
+	
+	
+	
+	
+	comment "! Specifies the error handler."
+      end
+
+      operation 131842 "error"
+	cpp_virtual cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "msg" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+		throw XmlRpcException(msg);
+	};
+"
+	
+	
+	
+	
+	comment "! Report an error. Custom error handlers should define this method."
+      end
+
+      classrelation 128130 // _errorHandler (<unidirectional association>)
+	relation 128130 --->
+	  a role_name "_errorHandler" init_value "= &defaultErrorHandler" class_relation protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128130 // _errorHandler (<unidirectional association>)
+	  b parent class_ref 129154 // XmlRpcErrorHandler
+      end
+    end
+
+    class 129282 "XmlRpcLogHandler"
+      abstract visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! An interface allowing custom handling of informational message reporting."
+      operation 131970 "getLogHandler"
+	class_operation cpp_inline public return_type class_ref 129282 // XmlRpcLogHandler
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _logHandler; };
+"
+	
+	
+	
+	
+	comment "! Returns a pointer to the currently installed message reporting object."
+      end
+
+      operation 132098 "setLogHandler"
+	class_operation cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param inout name "lh" type class_ref 129282 // XmlRpcLogHandler
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _logHandler = lh; };
+"
+	
+	
+	
+	
+	comment "! Specifies the message handler."
+      end
+
+      operation 132226 "getVerbosity"
+	class_operation cpp_inline public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _verbosity; };
+"
+	
+	
+	
+	
+	comment "! Returns the level of verbosity of informational messages. 0 is no output, 5 is very verbose."
+      end
+
+      operation 132354 "setVerbosity"
+	class_operation cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "v" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _verbosity = v; };
+"
+	
+	
+	
+	
+	comment "! Specify the level of verbosity of informational messages. 0 is no output, 5 is very verbose."
+      end
+
+      operation 132482 "log"
+	abstract cpp_virtual public explicit_return_type "void"
+	nparams 2
+	  param in name "level" explicit_type "int"
+	  param in name "msg" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, const ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+	comment "! Output a message. Custom error handlers should define this method."
+      end
+
+      classrelation 128258 // _logHandler (<unidirectional association>)
+	relation 128258 --->
+	  a role_name "_logHandler" init_value "= &defaultLogHandler" class_relation protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128258 // _logHandler (<unidirectional association>)
+	  b parent class_ref 129282 // XmlRpcLogHandler
+      end
+
+      attribute 128514 "_verbosity"
+	class_attribute protected explicit_type "int"
+	init_value "= 0"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    class 129410 "XmlRpcClient"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! A class to send XML RPC requests to a server and return the results."
+      classrelation 128386 // <generalisation>
+	relation 128386 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 128386 // <generalisation>
+	  b parent class_ref 129538 // XmlRpcSource
+      end
+
+      attribute 128642 "REQUEST_BEGIN"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= 
+  \"<?xml version=\\\"1.0\\\"?>\\r\\n\"
+  \"<methodCall><methodName>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Static data
+"
+      end
+
+      attribute 128770 "REQUEST_END_METHODNAME"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"</methodName>\\r\\n\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128898 "PARAMS_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<params>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129026 "PARAMS_ETAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"</params>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129154 "PARAM_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<param>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129282 "PARAM_ETAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "=  \"</param>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129410 "REQUEST_END"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"</methodCall>\\r\\n\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129538 "METHODRESPONSE_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<methodResponse>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Result tags
+"
+      end
+
+      attribute 129666 "FAULT_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<fault>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 132610 "XmlRpcClient"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 3
+	  param in name "host" explicit_type "char"
+	  param in name "port" explicit_type "int"
+	  param in name "uri" explicit_type "char"
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} * ${p0}${v0}, ${t1} ${p1}${v1}, const ${t2} * ${p2}${v2}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Construct a client to connect to the server at the specified host:port address
+!  @param host The name of the remote machine hosting the server
+!  @param port The port on the remote machine where the server is listening
+!  @param uri  An optional string to be sent as the URI in the HTTP GET header"
+      end
+
+      operation 132738 "XmlRpcClient"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//
+//void XmlRpcClient::writelog(string msg){
+//_log -> write(msg);
+//}
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 132866 "~XmlRpcClient"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Destructor"
+      end
+
+      operation 132994 "execute"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 3
+	  param in name "method" explicit_type "char"
+	  param in name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, const ${t1} & ${p1}${v1}, ${t2} & ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Execute the named procedure on the remote server.
+// Params should be an array of the arguments for the method.
+// Returns true if the request was sent and a result received (although the result
+// might be a fault).
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, const ${t1} & ${p1}, ${t2} & ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Execute the named procedure on the remote server.
+!  @param method The name of the remote procedure to execute
+!  @param params An array of the arguments for the method
+!  @param result The result value to be returned to the client
+!  @return true if the request was sent and a result received 
+!   (although the result might be a fault).
+!
+! Currently this is a synchronous (blocking) implementation (execute
+! does not return until it receives a response or an error). Use isFault()
+! to determine whether the result is a fault response."
+      end
+
+      operation 133122 "isFault"
+	const cpp_inline public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _isFault; };
+"
+	
+	
+	
+	
+	comment "! Returns true if the result of the last execute() was a fault response."
+      end
+
+      operation 133250 "interpreta"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "cmd" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 133378 "clhelp"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 133506 "getloghandlerf"
+	preserve_cpp_body_indent public return_type class_ref 128002 // Archivo
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 133634 "getVerbosity"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 133762 "close"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Close the owned fd
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " XmlRpcSource interface implementation
+! Close the connection"
+      end
+
+      operation 133890 "handleEvent"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "uint"
+	nparams 1
+	  param in name "eventType" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// XmlRpcSource interface implementation
+// Handle server responses. Called by the event dispatcher during execute.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Handle server responses. Called by the event dispatcher during execute.
+!  @param eventType The type of event that occurred. 
+!  @see XmlRpcDispatch::EventType"
+      end
+
+      operation 134018 "writelog"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "msg" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+      end
+
+      operation 134146 "setupConnection"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Create the socket connection to the server if necessary
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " Execution processing helpers"
+      end
+
+      operation 134274 "doConnect"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Connect to the xmlrpc server
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134402 "generateRequest"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 2
+	  param in name "methodName" explicit_type "char"
+	  param in name "params" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, const ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Encode the request to call the specified method with the specified parameters into xml
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, const ${t1} & ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134530 "generateHeader"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "std::string"
+	nparams 1
+	  param in name "body" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Prepend http headers
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134658 "writeRequest"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134786 "readHeader"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Read the header from the response
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134914 "readResponse"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 135042 "parseResponse"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "bool"
+	nparams 1
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Convert the response xml into a result value
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      class 129794 "ClientConnectionState"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 129794 "NO_CONNECTION"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 129922 "CONNECTING"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 130050 "WRITE_REQUEST"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 130178 "READ_HEADER"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 130306 "READ_RESPONSE"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 130434 "IDLE"
+	  public type class_ref 129794 // ClientConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      classrelation 128514 // _connectionState (<directional composition>)
+	relation 128514 *-->
+	  a role_name "_connectionState" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 128514 // _connectionState (<directional composition>)
+	  b parent class_ref 129794 // ClientConnectionState
+      end
+
+      attribute 130562 "_host"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Server location
+"
+      end
+
+      attribute 130690 "_uri"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130818 "_port"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130946 "_request"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " The xml-encoded request, http header of response, and response xml
+"
+      end
+
+      attribute 131074 "_header"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 131202 "_response"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 131330 "_sendAttempts"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Number of times the client has attempted to send the request
+"
+      end
+
+      attribute 131458 "_bytesWritten"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Number of bytes of the request that have been written to the socket so far
+"
+      end
+
+      attribute 131586 "_executing"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " True if we are currently executing a request. If you want to multithread,
+ each thread should have its own client.
+"
+      end
+
+      attribute 131714 "_eof"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " True if the server closed the connection
+"
+      end
+
+      attribute 131842 "_isFault"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " True if a fault response was returned by the server
+"
+      end
+
+      attribute 131970 "_contentLength"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Number of bytes expected in the response body (parsed from response header)
+"
+      end
+
+      classrelation 128642 // _disp (<directional composition>)
+	relation 128642 *-->
+	  a role_name "_disp" protected
+	    comment " Event dispatcher
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 128642 // _disp (<directional composition>)
+	  b parent class_ref 129922 // XmlRpcDispatch
+      end
+
+      classrelation 128770 // _log (<unidirectional association>)
+	relation 128770 --->
+	  a role_name "_log" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128770 // _log (<unidirectional association>)
+	  b parent class_ref 128002 // Archivo
+      end
+    end
+
+    class 129538 "XmlRpcSource"
+      abstract visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! An RPC source represents a file descriptor to monitor"
+      operation 143106 "XmlRpcSource"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 2
+	  param in name "fd" explicit_type "int"
+	    defaultvalue "-1"
+	  param in name "deleteOnClose" explicit_type "bool"
+	    defaultvalue "false"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)} 
+    : _fd(fd), _deleteOnClose(deleteOnClose), _keepOpen(false)
+  ${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Constructor
+!  @param fd The socket file descriptor to monitor.
+!  @param deleteOnClose If true, the object deletes itself when close is called."
+      end
+
+      operation 143234 "~XmlRpcSource"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Destructor"
+      end
+
+      operation 143362 "getfd"
+	const cpp_inline public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _fd; };
+"
+	
+	
+	
+	
+	comment "! Return the file descriptor being monitored."
+      end
+
+      operation 143490 "setfd"
+	cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "fd" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _fd = fd; };
+"
+	
+	
+	
+	
+	comment "! Specify the file descriptor to monitor."
+      end
+
+      operation 143618 "getKeepOpen"
+	const cpp_inline public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _keepOpen; };
+"
+	
+	
+	
+	
+	comment "! Return whether the file descriptor should be kept open if it is no longer monitored."
+      end
+
+      operation 143746 "setKeepOpen"
+	cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "b" explicit_type "bool"
+	    defaultvalue "true"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _keepOpen = b; };
+"
+	
+	
+	
+	
+	comment "! Specify whether the file descriptor should be kept open if it is no longer monitored."
+      end
+
+      operation 143874 "close"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "void"
+	nparams 2
+	  param inout name "flog" type class_ref 128002 // Archivo
+	  param in name "verbosity" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Close the owned fd. If deleteOnClose was specified at construction, the object is deleted."
+      end
+
+      operation 144002 "close"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 144130 "handleEvent"
+	abstract cpp_virtual public explicit_return_type "uint"
+	nparams 1
+	  param in name "eventType" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+	comment "! Return true to continue monitoring this source"
+      end
+
+      attribute 135938 "_fd"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Socket. This should really be a SOCKET (an alias for unsigned int*) on windows...
+"
+      end
+
+      attribute 136066 "_deleteOnClose"
+	private explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " In the server, a new source (XmlRpcServerConnection) is created
+ for each connected client. When each connection is closed, the
+ corresponding source object is deleted.
+"
+      end
+
+      attribute 136194 "_keepOpen"
+	private explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " In the client, keep connections open if you intend to make multiple calls.
+"
+      end
+    end
+
+    class 129666 "XmlRpcValue"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! RPC method arguments and results are represented by Values
+   should probably refcount them..."
+      class 131458 "Type"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 136322 "TypeInvalid"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 136450 "TypeBoolean"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 136578 "TypeInt"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 136706 "TypeDouble"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 136834 "TypeString"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 136962 "TypeDateTime"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 137090 "TypeBase64"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 137218 "TypeArray"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 137346 "TypeStruct"
+	  public type class_ref 131458 // Type
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      class 131586 "BinaryData"
+	visibility package stereotype "typedef" explicit_base_type "std::vector<char>"
+	cpp_decl "${comment}typedef ${type} ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+      end
+
+      class 131714 "ValueArray"
+	visibility package stereotype "typedef" base_type class_ref 129666 // XmlRpcValue
+	cpp_decl "${comment}typedef std::vector<${type}> ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	classrelation 130562 // <dependency>
+	  relation 130562 -_->
+	    a public
+	      cpp default "#include in source"
+	      classrelation_ref 130562 // <dependency>
+	    b parent class_ref 129666 // XmlRpcValue
+	end
+      end
+
+      class 131842 "ValueStruct"
+	visibility package stereotype "typedef" base_type class_ref 129666 // XmlRpcValue
+	cpp_decl "${comment}typedef std::map<std::string,${type}> ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	classrelation 130690 // <dependency>
+	  relation 130690 -_->
+	    a public
+	      cpp default "#include in source"
+	      classrelation_ref 130690 // <dependency>
+	    b parent class_ref 129666 // XmlRpcValue
+	end
+      end
+
+      operation 145282 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract} : _type(TypeInvalid) { _value.asBinary = 0; };
+"
+	
+	
+	
+	
+	comment "! Constructors"
+      end
+
+      operation 145410 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "value" explicit_type "bool"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeBoolean) { _value.asBool = value; };
+"
+	
+	
+	
+	
+      end
+
+      operation 145538 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "value" explicit_type "int"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeInt) { _value.asInt = value; };
+"
+	
+	
+	
+	
+      end
+
+      operation 145666 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "value" explicit_type "double"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeDouble) { _value.asDouble = value; };
+"
+	
+	
+	
+	
+      end
+
+      operation 145794 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "value" explicit_type "std::string"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} & ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeString) 
+    { _value.asString = new std::string(value); };
+"
+	
+	
+	
+	
+      end
+
+      operation 145922 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "value" explicit_type "char"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeString)
+    { _value.asString = new std::string(value); };
+"
+	
+	
+	
+	
+      end
+
+      operation 146050 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param inout name "value" explicit_type "tm"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeDateTime) 
+    { _value.asTime = new struct tm(*value); };
+"
+	
+	
+	
+	
+      end
+
+      operation 146178 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 2
+	  param inout name "value" explicit_type "void"
+	  param in name "nBytes" explicit_type "int"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${volatile}${throw}${abstract} : _type(TypeBase64)
+    {
+      _value.asBinary = new BinaryData((char*)value, ((char*)value)+nBytes);
+    };
+"
+	
+	
+	
+	
+      end
+
+      operation 146306 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 2
+	  param in name "xml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${volatile}${throw}${abstract} : _type(TypeInvalid)
+    { if ( ! fromXml(xml,offset)) _type = TypeInvalid; };
+"
+	
+	
+	
+	
+	comment "! Construct from xml, beginning at *offset chars into the string, updates offset"
+      end
+
+      operation 146434 "XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 1
+	  param in name "rhs" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} & ${p0}${v0}${)}${volatile}${throw}${abstract} : _type(TypeInvalid) { *this = rhs; };
+"
+	
+	
+	
+	
+	comment "! Copy"
+      end
+
+      operation 146562 "~XmlRpcValue"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract} { invalidate(); };
+"
+	
+	
+	
+	
+	comment "! Destructor (make virtual if you want to subclass)
+virtual"
+      end
+
+      operation 146690 "clear"
+	cpp_inline public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { invalidate(); };
+"
+	
+	
+	
+	
+	comment "! Erase the current value"
+      end
+
+      operation 146818 "operator ="
+	preserve_cpp_body_indent public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "rhs" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " Operators"
+      end
+
+      operation 146946 "operator ="
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "rhs" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { return operator=(XmlRpcValue(rhs)); };
+"
+	
+	
+	
+	
+      end
+
+      operation 147074 "operator ="
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "rhs" explicit_type "double"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { return operator=(XmlRpcValue(rhs)); };
+"
+	
+	
+	
+	
+      end
+
+      operation 147202 "operator ="
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "rhs" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { return operator=(XmlRpcValue(std::string(rhs))); };
+"
+	
+	
+	
+	
+      end
+
+      operation 147330 "operator =="
+	preserve_cpp_body_indent const public explicit_return_type "bool"
+	nparams 1
+	  param in name "other" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 147458 "operator !="
+	preserve_cpp_body_indent const public explicit_return_type "bool"
+	nparams 1
+	  param in name "other" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 147586 "operator bool&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeBoolean); return _value.asBool; };
+"
+	
+	
+	
+	
+      end
+
+      operation 147714 "operator int&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeInt); return _value.asInt; };
+"
+	
+	
+	
+	
+      end
+
+      operation 147842 "operator double&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeDouble); return _value.asDouble; };
+"
+	
+	
+	
+	
+      end
+
+      operation 147970 "operator std::string&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeString); return *_value.asString; };
+"
+	
+	
+	
+	
+      end
+
+      operation 148098 "operator BinaryData&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeBase64); return *_value.asBinary; };
+"
+	
+	
+	
+	
+      end
+
+      operation 148226 "operator structtm&"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${name}${(}${)}${const}${volatile}${throw}${abstract} { assertTypeOrInvalid(TypeDateTime); return *_value.asTime; };
+"
+	
+	
+	
+	
+      end
+
+      operation 148354 "operator []"
+	const constvalue cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "i" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { assertArray(i+1); return _value.asArray->at(i); };
+"
+	
+	
+	
+	
+      end
+
+      operation 148482 "operator []"
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "i" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { assertArray(i+1); return _value.asArray->at(i); };
+"
+	
+	
+	
+	
+      end
+
+      operation 148610 "operator []"
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "k" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { assertStruct(); return (*_value.asStruct)[k]; };
+"
+	
+	
+	
+	
+      end
+
+      operation 148738 "operator []"
+	cpp_inline public return_type class_ref 129666 // XmlRpcValue
+	nparams 1
+	  param in name "k" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}const ${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { assertStruct(); std::string s(k); return (*_value.asStruct)[s]; };
+"
+	
+	
+	
+	
+      end
+
+      operation 148866 "valid"
+	const cpp_inline public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _type != TypeInvalid; };
+"
+	
+	
+	
+	
+	comment " Accessors
+! Return true if the value has been set to something."
+      end
+
+      operation 148994 "getType"
+	const constvalue cpp_inline public return_type class_ref 131458 // Type
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _type; };
+"
+	
+	
+	
+	
+	comment "! Return the type of the value stored. \\see Type."
+      end
+
+      operation 149122 "size"
+	preserve_cpp_body_indent const public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Works for strings, binary data, arrays, and structs.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Return the size for string, base64, array, and struct values."
+      end
+
+      operation 149250 "setSize"
+	cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "size" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { assertArray(size); };
+"
+	
+	
+	
+	
+	comment "! Specify the size for array values. Array values will grow beyond this size if needed."
+      end
+
+      operation 149378 "hasMember"
+	preserve_cpp_body_indent const public explicit_return_type "bool"
+	nparams 1
+	  param in name "name" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Checks for existence of struct member
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Check for the existence of a struct member by name."
+      end
+
+      operation 149506 "fromXml"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Set the value from xml. The chars at *offset into valueXml 
+// should be the start of a <value> tag. Destroys any existing value.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Decode xml. Destroys any existing value."
+      end
+
+      operation 149634 "toXml"
+	preserve_cpp_body_indent const public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Encode the Value in xml
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Encode the Value in xml"
+      end
+
+      operation 149762 "write"
+	preserve_cpp_body_indent const public explicit_return_type "std::ostream"
+	nparams 1
+	  param inout name "os" explicit_type "std::ostream"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Write the value without xml encoding it
+
+${inline}${typeprefix}${type} & ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Write the value (no xml encoding)"
+      end
+
+      operation 149890 "getDoubleFormat"
+	class_operation constvalue cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _doubleFormat; };
+"
+	
+	
+	
+	
+	comment " Formatting
+! Return the format used to write double values."
+      end
+
+      operation 150018 "setDoubleFormat"
+	class_operation cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "f" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract} { _doubleFormat = f; };
+"
+	
+	
+	
+	
+	comment "! Specify the format used to write double values."
+      end
+
+      operation 150146 "invalidate"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " Clean up"
+      end
+
+      operation 150274 "assertTypeOrInvalid"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 1
+	  param in name "t" type class_ref 131458 // Type
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " Type checking"
+      end
+
+      operation 150402 "assertArray"
+	preserve_cpp_body_indent const protected explicit_return_type "void"
+	nparams 1
+	  param in name "size" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 150530 "assertArray"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 1
+	  param in name "size" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 150658 "assertStruct"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 150786 "boolFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Boolean
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " XML decoding"
+      end
+
+      operation 150914 "intFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Int
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151042 "doubleFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Double
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151170 "stringFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// String
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151298 "timeFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// DateTime (stored as a struct tm)
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151426 "binaryFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Base64
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151554 "arrayFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Array
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151682 "structFromXml"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 2
+	  param in name "valueXml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Struct
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151810 "boolToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " XML encoding"
+      end
+
+      operation 151938 "intToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152066 "doubleToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152194 "stringToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152322 "timeToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152450 "binaryToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152578 "arrayToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// In general, its preferable to generate the xml of each element of the
+// array as it is needed rather than glomming up one big string.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 152706 "structToXml"
+	preserve_cpp_body_indent const protected explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// In general, its preferable to generate the xml of each element
+// as it is needed rather than glomming up one big string.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      attribute 137474 "_doubleFormat"
+	class_attribute protected explicit_type "std::string"
+	init_value "(\"%f\")"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Format strings
+"
+      end
+
+      classrelation 130818 // _type (<directional composition>)
+	relation 130818 *-->
+	  a role_name "_type" protected
+	    comment " Type tag and values
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 130818 // _type (<directional composition>)
+	  b parent class_ref 131458 // Type
+      end
+
+      attribute 137602 "_value"
+	protected explicit_type "<complex type>"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}union  {
+      bool          asBool;
+      int           asInt;
+      double        asDouble;
+      struct tm*    asTime;
+      std::string*  asString;
+      BinaryData*   asBinary;
+      ValueArray*   asArray;
+      ValueStruct*  asStruct;
+    } ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " At some point I will split off Arrays and Structs into
+ separate ref-counted objects for more efficient copying.
+"
+      end
+    end
+
+    class 129922 "XmlRpcDispatch"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! An object which monitors file descriptors for events and performs
+! callbacks when interesting events happen."
+      operation 135170 "XmlRpcDispatch"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Constructor"
+      end
+
+      operation 135298 "~XmlRpcDispatch"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      class 130050 "EventType"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 132098 "ReadableEvent"
+	  public type class_ref 130050 // EventType
+	  init_value " 1"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 132226 "WritableEvent"
+	  public type class_ref 130050 // EventType
+	  init_value " 2"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 132354 "Exception"
+	  public type class_ref 130050 // EventType
+	  init_value " 4     //!< uh oh
+    "
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      operation 135426 "addSource"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param inout name "source" type class_ref 129538 // XmlRpcSource
+	  param in name "mask" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Monitor this source for the specified events and call its event handler
+// when the event occurs
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Monitor this source for the event types specified by the event mask
+! and call its event handler when any of the events occur.
+!  @param source The source to monitor
+!  @param eventMask Which event types to watch for. \\see EventType"
+      end
+
+      operation 135554 "removeSource"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param inout name "source" type class_ref 129538 // XmlRpcSource
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Stop monitoring this source. Does not close the source.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Stop monitoring this source.
+!  @param source The source to stop monitoring"
+      end
+
+      operation 135682 "setSourceEvents"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param inout name "source" type class_ref 129538 // XmlRpcSource
+	  param in name "eventMask" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Modify the types of events to watch for on this source
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Modify the types of events to watch for on this source"
+      end
+
+      operation 135810 "work"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "timeout" explicit_type "double"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Watch current set of sources and process events
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Watch current set of sources and process events for the specified
+! duration (in ms, -1 implies wait forever, or until exit is called)"
+      end
+
+      operation 135938 "exit"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Exit from work routine. Presumably this will be called from
+// one of the source event handlers.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Exit from work routine"
+      end
+
+      operation 136066 "clear"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Clear all sources from the monitored sources list
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Clear all sources from the monitored sources list. Sources are closed."
+      end
+
+      operation 136194 "getTime"
+	preserve_cpp_body_indent protected explicit_return_type "double"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " helper"
+      end
+
+      class 130178 "MonitoredSource"
+	visibility package stereotype "struct"
+	cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	operation 136322 "MonitoredSource"
+	  cpp_inline public explicit_return_type ""
+	  nparams 2
+	    param inout name "src" type class_ref 129538 // XmlRpcSource
+	    param in name "mask" explicit_type "uint"
+	  cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${volatile}${throw}${abstract} : _src(src), _mask(mask) {};
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 136450 "getSource"
+	  const cpp_inline public return_type class_ref 129538 // XmlRpcSource
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _src; };
+"
+	  
+	  
+	  
+	  
+	end
+
+	operation 136578 "getMask"
+	  cpp_inline public explicit_return_type "uint"
+	  nparams 0
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _mask; };
+"
+	  
+	  
+	  
+	  
+	end
+
+	classrelation 128898 // _src (<unidirectional association>)
+	  relation 128898 --->
+	    a role_name "_src" public
+	      cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	      classrelation_ref 128898 // _src (<unidirectional association>)
+	    b parent class_ref 129538 // XmlRpcSource
+	end
+
+	attribute 132482 "_mask"
+	  public explicit_type "uint"
+	  cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      class 130306 "SourceList"
+	visibility package stereotype "typedef" base_type class_ref 130178 // MonitoredSource
+	cpp_decl "${comment}typedef std::list<${type}> ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	classrelation 129026 // <dependency>
+	  relation 129026 -_->
+	    a public
+	      cpp default "#include in source"
+	      classrelation_ref 129026 // <dependency>
+	    b parent class_ref 130178 // MonitoredSource
+	end
+      end
+
+      classrelation 129154 // _sources (<directional composition>)
+	relation 129154 *-->
+	  a role_name "_sources" protected
+	    comment " Sources being monitored
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 129154 // _sources (<directional composition>)
+	  b parent class_ref 130306 // SourceList
+      end
+
+      attribute 132610 "_endTime"
+	protected explicit_type "double"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " When work should stop (-1 implies wait forever, or until exit is called)
+"
+      end
+
+      attribute 132738 "_doClear"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 132866 "_inWork"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    class 130434 "XmlRpcException"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! A class representing an error.
+! If server methods throw this exception, a fault response is returned
+! to the client."
+      operation 136706 "XmlRpcException"
+	cpp_inline public explicit_return_type ""
+	nparams 2
+	  param in name "message" explicit_type "std::string"
+	  param in name "code" explicit_type "int"
+	    defaultvalue "-1"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} & ${p0}${v0}, ${t1} ${p1}${v1}${)}${volatile}${throw}${abstract} :
+        _message(message), _code(code) {};
+"
+	
+	
+	
+	
+	comment "! Constructor
+!   @param message  A descriptive error message
+!   @param code     An integer error code"
+      end
+
+      operation 136834 "getMessage"
+	const constvalue cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _message ; };
+"
+	
+	
+	
+	
+	comment "! Return the error message."
+      end
+
+      operation 136962 "getCode"
+	const cpp_inline public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _code; };
+"
+	
+	
+	
+	
+	comment "! Return the error code."
+      end
+
+      attribute 132994 "_message"
+	private explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 133122 "_code"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    class 130562 "XmlRpcServer"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! A class to handle XML RPC requests"
+      classrelation 129282 // <generalisation>
+	relation 129282 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 129282 // <generalisation>
+	  b parent class_ref 129538 // XmlRpcSource
+      end
+
+      operation 137090 "XmlRpcServer"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Create a server object."
+      end
+
+      operation 137218 "~XmlRpcServer"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Destructor."
+      end
+
+      operation 137346 "enableIntrospection"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "enabled" explicit_type "bool"
+	    defaultvalue "true"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Specify whether introspection is enabled or not. Default is enabled.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Specify whether introspection is enabled or not. Default is not enabled."
+      end
+
+      operation 137474 "addMethod"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param inout name "method" type class_ref 130690 // XmlRpcServerMethod
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Add a command to the RPC server
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Add a command to the RPC server"
+      end
+
+      operation 137602 "removeMethod"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param inout name "method" type class_ref 130690 // XmlRpcServerMethod
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Remove a command from the RPC server
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Remove a command from the RPC server"
+      end
+
+      operation 137730 "removeMethod"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "methodName" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Remove a command from the RPC server by name
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Remove a command from the RPC server by name"
+      end
+
+      operation 137858 "findMethod"
+	preserve_cpp_body_indent const public return_type class_ref 130690 // XmlRpcServerMethod
+	nparams 1
+	  param in name "name" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Look up a method by name
+
+${inline}${typeprefix}${type} * ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Look up a method by name"
+      end
+
+      operation 137986 "bindAndListen"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "port" explicit_type "int"
+	  param in name "backlog" explicit_type "int"
+	    defaultvalue "5"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Create a socket, bind to the specified port, and
+// set it in listen mode to make it available for clients.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Create a socket, bind to the specified port, and
+! set it in listen mode to make it available for clients."
+      end
+
+      operation 138114 "work"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "msTime" explicit_type "double"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Process client requests for the specified time
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Process client requests for the specified time"
+      end
+
+      operation 138242 "exit"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Stop processing client requests
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Temporarily stop processing client requests and exit the work() method."
+      end
+
+      operation 138370 "shutdown"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Close the server socket file descriptor and stop monitoring connections
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Close all connections with clients and the socket file descriptor"
+      end
+
+      operation 138498 "listMethods"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Introspection support"
+      end
+
+      operation 138626 "handleEvent"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "uint"
+	nparams 1
+	  param in name "mask" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Handle input on the server socket by accepting the connection
+// and reading the rpc request.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " XmlRpcSource interface implementation
+! Handle client connection requests"
+      end
+
+      operation 138754 "removeConnection"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "void"
+	nparams 1
+	  param inout name "sc" type class_ref 130818 // XmlRpcServerConnection
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Remove a connection from the dispatcher"
+      end
+
+      operation 138882 "acceptConnection"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Accept a client connection request and create a connection to
+// handle method calls from the client.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Accept a client connection request"
+      end
+
+      operation 139010 "createConnection"
+	preserve_cpp_body_indent cpp_virtual protected return_type class_ref 130818 // XmlRpcServerConnection
+	nparams 1
+	  param in name "s" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Create a new connection object for processing requests from a specific client.
+
+${inline}${typeprefix}${type} * ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Create a new connection object for processing requests from a specific client."
+      end
+
+      attribute 133250 "_introspectionEnabled"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Whether the introspection API is supported by this server
+"
+      end
+
+      classrelation 129410 // _disp (<directional composition>)
+	relation 129410 *-->
+	  a role_name "_disp" protected
+	    comment " Event dispatcher
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 129410 // _disp (<directional composition>)
+	  b parent class_ref 129922 // XmlRpcDispatch
+      end
+
+      class 130946 "MethodMap"
+	visibility package stereotype "typedef" base_type class_ref 130690 // XmlRpcServerMethod
+	cpp_decl "${comment}typedef std::map<std::string,${type}*> ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	classrelation 129538 // <dependency>
+	  relation 129538 -_->
+	    a public
+	      cpp default "#include in source"
+	      classrelation_ref 129538 // <dependency>
+	    b parent class_ref 130690 // XmlRpcServerMethod
+	end
+      end
+
+      classrelation 129666 // _methods (<directional composition>)
+	relation 129666 *-->
+	  a role_name "_methods" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 129666 // _methods (<directional composition>)
+	  b parent class_ref 130946 // MethodMap
+      end
+
+      classrelation 129794 // _listMethods (<unidirectional association>)
+	relation 129794 --->
+	  a role_name "_listMethods" protected
+	    comment " system methods
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129794 // _listMethods (<unidirectional association>)
+	  b parent class_ref 130690 // XmlRpcServerMethod
+      end
+
+      classrelation 129922 // _methodHelp (<unidirectional association>)
+	relation 129922 --->
+	  a role_name "_methodHelp" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129922 // _methodHelp (<unidirectional association>)
+	  b parent class_ref 130690 // XmlRpcServerMethod
+      end
+    end
+
+    class 130690 "XmlRpcServerMethod"
+      abstract visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! Abstract class representing a single RPC method"
+      operation 140802 "XmlRpcServerMethod"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 2
+	  param in name "name" explicit_type "std::string"
+	  param inout name "server" type class_ref 130562 // XmlRpcServer
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${inline}${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Constructor"
+      end
+
+      operation 140930 "~XmlRpcServerMethod"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Destructor"
+      end
+
+      operation 141058 "name"
+	cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} { return _name; };
+"
+	
+	
+	
+	
+	comment "! Returns the name of the method"
+      end
+
+      operation 141186 "execute"
+	abstract cpp_virtual public explicit_return_type "void"
+	nparams 2
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+	comment "! Execute the method. Subclasses must provide a definition for this method."
+      end
+
+      operation 141314 "help"
+	cpp_virtual cpp_inline public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return std::string(); };
+"
+	
+	
+	
+	
+	comment "! Returns a help string for the method.
+! Subclasses should define this method if introspection is being used."
+      end
+
+      attribute 135810 "_name"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 130434 // _server (<unidirectional association>)
+	relation 130434 --->
+	  a role_name "_server" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130434 // _server (<unidirectional association>)
+	  b parent class_ref 130562 // XmlRpcServer
+      end
+    end
+
+    class 130818 "XmlRpcServerConnection"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! A class to handle XML RPC requests from a particular client"
+      classrelation 130050 // <generalisation>
+	relation 130050 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 130050 // <generalisation>
+	  b parent class_ref 129538 // XmlRpcSource
+      end
+
+      attribute 133378 "METHODNAME_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<methodName>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Static data
+"
+      end
+
+      attribute 133506 "PARAMS_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<params>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 133634 "PARAMS_ETAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"</params>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 133762 "PARAM_TAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"<param>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 133890 "PARAM_ETAG"
+	class_attribute const_attribute public explicit_type "char"
+	multiplicity "[]"
+	init_value "= \"</param>\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 134018 "SYSTEM_MULTICALL"
+	class_attribute const_attribute public explicit_type "std::string"
+	init_value "= \"system.multicall\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 134146 "METHODNAME"
+	class_attribute const_attribute public explicit_type "std::string"
+	init_value "= \"methodName\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 134274 "PARAMS"
+	class_attribute const_attribute public explicit_type "std::string"
+	init_value "= \"params\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 134402 "FAULTCODE"
+	class_attribute const_attribute public explicit_type "std::string"
+	init_value "= \"faultCode\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 134530 "FAULTSTRING"
+	class_attribute const_attribute public explicit_type "std::string"
+	init_value "= \"faultString\""
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 139138 "XmlRpcServerConnection"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 3
+	  param in name "fd" explicit_type "int"
+	  param inout name "server" type class_ref 130562 // XmlRpcServer
+	  param in name "deleteOnClose" explicit_type "bool"
+	    defaultvalue "false"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}, ${t1} * ${p1}${v1}, ${t2} ${p2}${v2}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// The server delegates handling client requests to a serverConnection object.
+
+${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} * ${p1}, ${t2} ${p2}${)} :
+  XmlRpcSource(fd, deleteOnClose)
+${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Constructor"
+      end
+
+      operation 139266 "~XmlRpcServerConnection"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Destructor"
+      end
+
+      operation 139394 "handleEvent"
+	preserve_cpp_body_indent cpp_virtual public explicit_return_type "uint"
+	nparams 1
+	  param in name "eventType" explicit_type "uint"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Handle input on the server socket by accepting the connection
+// and reading the rpc request. Return true to continue to monitor
+// the socket for events, false to remove it from the dispatcher.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " XmlRpcSource interface implementation
+! Handle IO on the client connection socket.
+!   @param eventType Type of IO event that occurred. @see XmlRpcDispatch::EventType."
+      end
+
+      operation 139522 "readHeader"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 139650 "readRequest"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 139778 "writeResponse"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 139906 "executeRequest"
+	preserve_cpp_body_indent cpp_virtual protected explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Run the method, generate _response string
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " Parses the request, runs the method, generates the response xml."
+      end
+
+      operation 140034 "parseRequest"
+	preserve_cpp_body_indent protected explicit_return_type "std::string"
+	nparams 1
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Parse the method name and the argument values from the request.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " Parse the methodName and parameters from the request."
+      end
+
+      operation 140162 "executeMethod"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 3
+	  param in name "methodName" explicit_type "std::string"
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}, ${t2} & ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " Execute a named method with the specified params."
+      end
+
+      operation 140290 "executeMulticall"
+	preserve_cpp_body_indent protected explicit_return_type "bool"
+	nparams 3
+	  param in name "methodName" explicit_type "std::string"
+	  param inout name "params" type class_ref 129666 // XmlRpcValue
+	  param inout name "result" type class_ref 129666 // XmlRpcValue
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}, ${t2} & ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " Execute multiple calls and return the results in an array."
+      end
+
+      operation 140418 "generateResponse"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 1
+	  param in name "resultXml" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Create a response from results xml
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " Construct a response from the result XML."
+      end
+
+      operation 140546 "generateFaultResponse"
+	preserve_cpp_body_indent protected explicit_return_type "void"
+	nparams 2
+	  param in name "errorMsg" explicit_type "std::string"
+	  param in name "errorCode" explicit_type "int"
+	    defaultvalue "-1"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 140674 "generateHeader"
+	preserve_cpp_body_indent protected explicit_return_type "std::string"
+	nparams 1
+	  param in name "body" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Prepend http headers
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      classrelation 130178 // _server (<unidirectional association>)
+	relation 130178 --->
+	  a role_name "_server" protected
+	    comment " The XmlRpc server that accepted this connection
+"
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130178 // _server (<unidirectional association>)
+	  b parent class_ref 130562 // XmlRpcServer
+      end
+
+      class 131074 "ServerConnectionState"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 134658 "READ_HEADER"
+	  public type class_ref 131074 // ServerConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 134786 "READ_REQUEST"
+	  public type class_ref 131074 // ServerConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 134914 "WRITE_RESPONSE"
+	  public type class_ref 131074 // ServerConnectionState
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      classrelation 130306 // _connectionState (<directional composition>)
+	relation 130306 *-->
+	  a role_name "_connectionState" protected
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 130306 // _connectionState (<directional composition>)
+	  b parent class_ref 131074 // ServerConnectionState
+      end
+
+      attribute 135042 "_header"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Request headers
+"
+      end
+
+      attribute 135170 "_contentLength"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Number of bytes expected in the request body (parsed from header)
+"
+      end
+
+      attribute 135298 "_request"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Request body
+"
+      end
+
+      attribute 135426 "_response"
+	protected explicit_type "std::string"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Response
+"
+      end
+
+      attribute 135554 "_bytesWritten"
+	protected explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Number of bytes of the response written so far
+"
+      end
+
+      attribute 135682 "_keepAlive"
+	protected explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Whether to keep the current client connection open for further requests
+"
+      end
+    end
+
+    class 131202 "XmlRpcSocket"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! A platform-independent socket API."
+      operation 141442 "socket"
+	class_operation preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Creates a stream (TCP) socket. Returns -1 on failure."
+      end
+
+      operation 141570 "close"
+	class_operation preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "fd" explicit_type "int"
+	  param in name "verbosity" explicit_type "int"
+	    defaultvalue "5"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Closes a socket."
+      end
+
+      operation 141698 "setNonBlocking"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "fd" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Sets a stream (TCP) socket to perform non-blocking IO. Returns false on failure."
+      end
+
+      operation 141826 "nbRead"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 3
+	  param in name "fd" explicit_type "int"
+	  param inout name "s" explicit_type "std::string"
+	  param inout name "eof" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} & ${p1}${v1}, ${t2} * ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Read available text from the specified socket. Returns false on error.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} & ${p1}, ${t2} * ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Read text from the specified socket. Returns false on error."
+      end
+
+      operation 141954 "nbWrite"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 4
+	  param in name "fd" explicit_type "int"
+	  param inout name "s" explicit_type "std::string"
+	  param inout name "bytesSoFar" explicit_type "int"
+	  param in name "verb" explicit_type "int"
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} & ${p1}${v1}, ${t2} * ${p2}${v2}, ${t3} ${p3}${v3}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Write text to the specified socket. Returns false on error.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} & ${p1}, ${t2} * ${p2}, ${t3} ${p3}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Write text to the specified socket. Returns false on error."
+      end
+
+      operation 142082 "setReuseAddr"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "fd" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment " The next four methods are appropriate for servers.
+! Allow the port the specified socket is bound to to be re-bound immediately so 
+! server re-starts are not delayed. Returns false on failure."
+      end
+
+      operation 142210 "bind"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "fd" explicit_type "int"
+	  param in name "port" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Bind to a specified port
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Bind to a specified port"
+      end
+
+      operation 142338 "listen"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "fd" explicit_type "int"
+	  param in name "backlog" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Set socket in listen mode
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Set socket in listen mode"
+      end
+
+      operation 142466 "accept"
+	class_operation preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "fd" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Accept a client connection request"
+      end
+
+      operation 142594 "connect"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 3
+	  param in name "fd" explicit_type "int"
+	  param inout name "host" explicit_type "std::string"
+	  param in name "port" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} & ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Connect a socket to a server (from a client)
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} & ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Connect a socket to a server (from a client)"
+      end
+
+      operation 142722 "getError"
+	class_operation preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns last errno
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns last errno"
+      end
+
+      operation 142850 "getErrorMsg"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns message corresponding to last errno
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns message corresponding to last error"
+      end
+
+      operation 142978 "getErrorMsg"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 1
+	  param in name "error" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns message corresponding to errno... well, it should anyway
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns message corresponding to error"
+      end
+    end
+
+    class 131330 "XmlRpcUtil"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "! Utilities for XML parsing, encoding, and decoding and message handlers."
+      operation 144258 "parseTag"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 3
+	  param in name "tag" explicit_type "char"
+	  param in name "xml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, const ${t1} & ${p1}${v1}, ${t2} * ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns contents between <tag> and </tag>, updates offset to char after </tag>
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, const ${t1} & ${p1}, ${t2} * ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment " hokey xml parsing
+! Returns contents between <tag> and </tag>, updates offset to char after </tag>"
+      end
+
+      operation 144386 "findTag"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 3
+	  param in name "tag" explicit_type "char"
+	  param in name "xml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, const ${t1} & ${p1}${v1}, ${t2} * ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns true if the tag is found and updates offset to the char after the tag
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, const ${t1} & ${p1}, ${t2} * ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns true if the tag is found and updates offset to the char after the tag"
+      end
+
+      operation 144514 "getNextTag"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 2
+	  param in name "xml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, ${t1} * ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns the next tag and updates offset to the char after the tag, or empty string
+// if the next non-whitespace character is not '<'
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, ${t1} * ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns the next tag and updates offset to the char after the tag, or empty string
+! if the next non-whitespace character is not '<'"
+      end
+
+      operation 144642 "nextTagIs"
+	class_operation preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 3
+	  param in name "tag" explicit_type "char"
+	  param in name "xml" explicit_type "std::string"
+	  param inout name "offset" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, const ${t1} & ${p1}${v1}, ${t2} * ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Returns true if the tag is found at the specified offset (modulo any whitespace)
+// and updates offset to the char after the tag
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, const ${t1} & ${p1}, ${t2} * ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Returns true if the tag is found at the specified offset (modulo any whitespace)
+! and updates offset to the char after the tag"
+      end
+
+      operation 144770 "xmlEncode"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 1
+	  param in name "raw" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Replace raw text with xml-encoded entities.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Convert raw text to encoded xml."
+      end
+
+      operation 144898 "xmlDecode"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 1
+	  param in name "encoded" explicit_type "std::string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Replace xml-encoded entities with the raw text equivalents.
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "! Convert encoded xml to raw text"
+      end
+
+      operation 145026 "log"
+	class_operation preserve_cpp_body_indent public explicit_return_type "std::string"
+	nparams 2
+	  param in name "level" explicit_type "int"
+	  param in name "fmt" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, const ${t1} * ${p1}${v1}, ...${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Dump messages somewhere"
+      end
+
+      operation 145154 "error"
+	class_operation preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "fmt" explicit_type "char"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, ...${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	comment "! Dump error messages somewhere"
+      end
+    end
+
+    classdiagram 128130 "ClienteC++test"
+      classdiagramsettings member_max_width 0 end
+      size A4
+    end
+  end
+
+  deploymentview 128130 "XmlRpc"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128258 "XmlRpc"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 129154 // XmlRpcErrorHandler
+	class_ref 129282 // XmlRpcLogHandler
+      end
+    end
+
+    artifact 128386 "XmlRpcClient"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 129410 // XmlRpcClient
+      end
+    end
+
+    artifact 128514 "XmlRpcDispatch"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 129922 // XmlRpcDispatch
+      end
+    end
+
+    artifact 128642 "XmlRpcException"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 130434 // XmlRpcException
+      end
+    end
+
+    artifact 128770 "XmlRpcServer"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 130562 // XmlRpcServer
+      end
+    end
+
+    artifact 128898 "XmlRpcServerConnection"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 130818 // XmlRpcServerConnection
+      end
+    end
+
+    artifact 129026 "XmlRpcServerMethod"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 130690 // XmlRpcServerMethod
+      end
+    end
+
+    artifact 129154 "XmlRpcSocket"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 131202 // XmlRpcSocket
+      end
+    end
+
+    artifact 129282 "XmlRpcSource"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 129538 // XmlRpcSource
+      end
+    end
+
+    artifact 129410 "XmlRpcUtil"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 131330 // XmlRpcUtil
+      end
+    end
+
+    artifact 129538 "XmlRpcValue"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 129666 // XmlRpcValue
+      end
+    end
+  end
+end

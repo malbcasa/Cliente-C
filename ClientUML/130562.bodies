@@ -1,0 +1,136 @@
+class XmlRpcServer
+!!!137090.cpp!!!	XmlRpcServer()
+  _introspectionEnabled = false;
+  _listMethods = 0;
+  _methodHelp = 0;
+!!!137218.cpp!!!	~XmlRpcServer()
+  this->shutdown();
+  _methods.clear();
+  delete _listMethods;
+  delete _methodHelp;
+!!!137346.cpp!!!	enableIntrospection(in enabled : bool = true) : void
+  if (_introspectionEnabled == enabled)
+    return;
+
+  _introspectionEnabled = enabled;
+
+  if (enabled)
+  {
+    if ( ! _listMethods)
+    {
+      _listMethods = new ListMethods(this);
+      _methodHelp = new MethodHelp(this);
+    } else {
+      addMethod(_listMethods);
+      addMethod(_methodHelp);
+    }
+  }
+  else
+  {
+    removeMethod(LIST_METHODS);
+    removeMethod(METHOD_HELP);
+  }
+!!!137474.cpp!!!	addMethod(inout method : XmlRpcServerMethod) : void
+  _methods[method->name()] = method;
+!!!137602.cpp!!!	removeMethod(inout method : XmlRpcServerMethod) : void
+  MethodMap::iterator i = _methods.find(method->name());
+  if (i != _methods.end())
+    _methods.erase(i);
+!!!137730.cpp!!!	removeMethod(in methodName : std::string) : void
+  MethodMap::iterator i = _methods.find(methodName);
+  if (i != _methods.end())
+    _methods.erase(i);
+!!!137858.cpp!!!	findMethod(in name : std::string) : XmlRpcServerMethod
+  MethodMap::const_iterator i = _methods.find(name);
+  if (i == _methods.end())
+    return 0;
+  return i->second;
+!!!137986.cpp!!!	bindAndListen(in port : int, in backlog : int = 5) : bool
+  int fd = XmlRpcSocket::socket();
+  if (fd < 0)
+  {
+    XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not create socket (%s).", XmlRpcSocket::getErrorMsg().c_str());
+    return false;
+  }
+
+  this->setfd(fd);
+
+  // Don't block on reads/writes
+  if ( ! XmlRpcSocket::setNonBlocking(fd))
+  {
+    this->close();
+    XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not set socket to non-blocking input mode (%s).", XmlRpcSocket::getErrorMsg().c_str());
+    return false;
+  }
+
+  // Allow this port to be re-bound immediately so server re-starts are not delayed
+  if ( ! XmlRpcSocket::setReuseAddr(fd))
+  {
+    this->close();
+    XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not set SO_REUSEADDR socket option (%s).", XmlRpcSocket::getErrorMsg().c_str());
+    return false;
+  }
+
+  // Bind to the specified port on the default interface
+  if ( ! XmlRpcSocket::bind(fd, port))
+  {
+    this->close();
+    XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not bind to specified port (%s).", XmlRpcSocket::getErrorMsg().c_str());
+    return false;
+  }
+
+  // Set in listening mode
+  if ( ! XmlRpcSocket::listen(fd, backlog))
+  {
+    this->close();
+    XmlRpcUtil::error("XmlRpcServer::bindAndListen: Could not set socket in listening mode (%s).", XmlRpcSocket::getErrorMsg().c_str());
+    return false;
+  }
+  XmlRpcUtil::log(2, "XmlRpcServer::bindAndListen: server listening on port %d fd %d", port, fd);
+
+  // Notify the dispatcher to listen on this source when we are in work()
+  _disp.addSource(this, XmlRpcDispatch::ReadableEvent);
+
+  return true;
+!!!138114.cpp!!!	work(in msTime : double) : void
+  XmlRpcUtil::log(2, "XmlRpcServer::work: waiting for a connection");
+  _disp.work(msTime);
+!!!138242.cpp!!!	exit() : void
+  _disp.exit();
+!!!138370.cpp!!!	shutdown() : void
+  // This closes and destroys all connections as well as closing this socket
+  _disp.clear();
+!!!138498.cpp!!!	listMethods(inout result : XmlRpcValue) : void
+  int i = 0;
+  result.setSize(_methods.size()+1);
+  for (MethodMap::iterator it=_methods.begin(); it != _methods.end(); ++it)
+    result[i++] = it->first;
+
+  // Multicall support is built into XmlRpcServerConnection
+  result[i] = MULTICALL;
+!!!138626.cpp!!!	handleEvent(in mask : uint) : uint
+  acceptConnection();
+  return XmlRpcDispatch::ReadableEvent;		// Continue to monitor this fd
+!!!138754.cpp!!!	removeConnection(inout sc : XmlRpcServerConnection) : void
+  _disp.removeSource(sc);
+!!!138882.cpp!!!	acceptConnection() : void
+  int s = XmlRpcSocket::accept(this->getfd());
+  XmlRpcUtil::log(2, "XmlRpcServer::acceptConnection: socket %d", s);
+  if (s < 0)
+  {
+    //this->close();
+    XmlRpcUtil::error("XmlRpcServer::acceptConnection: Could not accept connection (%s).", XmlRpcSocket::getErrorMsg().c_str());
+  }
+  else if ( ! XmlRpcSocket::setNonBlocking(s))
+  {
+    XmlRpcSocket::close(s);
+    XmlRpcUtil::error("XmlRpcServer::acceptConnection: Could not set socket to non-blocking input mode (%s).", XmlRpcSocket::getErrorMsg().c_str());
+  }
+  else  // Notify the dispatcher to listen for input on this source when we are in work()
+  {
+    XmlRpcUtil::log(2, "XmlRpcServer::acceptConnection: creating a connection");
+    _disp.addSource(this->createConnection(s), XmlRpcDispatch::ReadableEvent);
+  }
+!!!139010.cpp!!!	createConnection(in s : int) : XmlRpcServerConnection
+  // Specify that the connection object be deleted when it is closed
+  return new XmlRpcServerConnection(s, this, true);

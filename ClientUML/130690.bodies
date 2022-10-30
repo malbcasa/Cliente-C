@@ -1,0 +1,9 @@
+class XmlRpcServerMethod
+!!!140802.cpp!!!	XmlRpcServerMethod(in name : std::string, inout server : XmlRpcServer = 0)
+
+    _name = name;
+    _server = server;
+    if (_server) _server->addMethod(this);
+!!!140930.cpp!!!	~XmlRpcServerMethod()
+
+    if (_server) _server->removeMethod(this);

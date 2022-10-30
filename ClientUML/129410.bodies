@@ -1,51 +1,15 @@
+class XmlRpcClient
+!!!132610.cpp!!!	XmlRpcClient(in host : char, in port : int, in uri : char = 0)
 
-#include "XmlRpcClient.h"
-
-#include "XmlRpcSocket.h"
-#include "XmlRpc.h"
-#include "XmlRpcException.h"
-
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <string.h>
-#include <cstring>
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include "Archivo.h"
-
-using namespace XmlRpc;
-
-// Static data
-const char XmlRpcClient::REQUEST_BEGIN[] = 
-  "<?xml version=\"1.0\"?>\r\n"
-  "<methodCall><methodName>";
-const char XmlRpcClient::REQUEST_END_METHODNAME[] = "</methodName>\r\n";
-const char XmlRpcClient::PARAMS_TAG[] = "<params>";
-const char XmlRpcClient::PARAMS_ETAG[] = "</params>";
-const char XmlRpcClient::PARAM_TAG[] = "<param>";
-const char XmlRpcClient::PARAM_ETAG[] =  "</param>";
-const char XmlRpcClient::REQUEST_END[] = "</methodCall>\r\n";
-const char XmlRpcClient::METHODRESPONSE_TAG[] = "<methodResponse>";
-const char XmlRpcClient::FAULT_TAG[] = "<fault>";
-const std::vector <std::string> comands{"help","setupConnection","close","exit","setlog","getreporte"};
-
-
-XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
-{
 	if(XmlRpc::getVerbosity() > 0){ 
 		_log = new Archivo;
 		_log -> open();
 		_log -> write(XmlRpcUtil::log(1, "XmlRpcClient new client: host %s, port %d.", host, port));
 	}
   std::cout << "\n\n**********Bienvenido a Veneris Client  Â®**********\n" ;
-  std::cout << "Lista de comandos disponibles\n";
+  std::cout << "Lista de comandos del cliente disponibles\n";
   _host = host;
   _port = port;
-  this->help();
   if (uri)
     _uri = uri;
   else
@@ -56,62 +20,57 @@ XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
 
   // Default to keeping the connection open until an explicit close is done
   setKeepOpen();
-}
+!!!132738.cpp!!!	XmlRpcClient()
 
-
-XmlRpcClient::XmlRpcClient(){
 		
 	std::cout << "\n\n**********Bienvenido a Veneris Client ®**********\n" ;
-	std::cout << "Lista de comandos disponibles\n";
-	
+	std::cout << "Lista de comandos del cliente disponibles\n";
 	_uri = "/RPC2";
 	_connectionState = NO_CONNECTION;
 	_executing = false;
 	_eof = false;
 	
 	_host = "vacio";
-	this->help();
+	
 	// Default to keeping the connection open until an explicit close is done
 	setKeepOpen();
-}
+!!!132994.cpp!!!	execute(in method : char, in params : XmlRpcValue, inout result : XmlRpcValue) : bool
 
-XmlRpcClient::~XmlRpcClient()
-{
-}
-
-Archivo* XmlRpcClient::getloghandlerf(){
-	return _log;
-}
-
-int XmlRpcClient::getVerbosity(){
-	return XmlRpc::getVerbosity();
-}
-
-void XmlRpcClient::getreporte(){
-	XmlRpcValue noArgs,result;
-	
-	try{
-		this->execute("seteco",noArgs,result);
-	}catch(XmlRpcException ex){
-		std::cout << "Estado de la conexión: Offline\nNo se puede recuperar más información por el momento\n";
+	if(XmlRpc::getVerbosity() > 0){ 
+		_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s (_connectionState %d).", method, _connectionState));
 	}
-	if( result1 == "Online"){
-		std::cout << "Estado de la conexión: Online\n";
-		try{
-			std::cout << "Estado robot : ";
-			this -> interpreta("svgetestadopuertoserie");
-			std::cout << "\nEl numero de ordenes hasta el momento es: ";
-			this -> interpreta("svgetnumordenes");
-			std::cout << "\nLos comandos ejecutados son:\n";
-			this -> interpreta("svgetlistaordenes");
-		}catch(XmlRpcException ex){
-			std::cout << ex.getMessage() << "\n" ;
-			std::cout << "Por el momento no se puede recuperar más información";
-		}	
-	}
-	
-}
-void XmlRpcClient::interpreta(std::string cmd){
+  // This is not a thread-safe operation, if you want to do multithreading, use separate
+  // clients for each thread. If you want to protect yourself from multiple threads
+  // accessing the same client, replace this code with a real mutex.
+  if (_executing)
+    return false;
+
+  _executing = true;
+  ClearFlagOnExit cf(_executing);
+
+  _sendAttempts = 0;
+  _isFault = false;
+
+  if ( ! setupConnection())
+    return false;
+
+  if ( ! generateRequest(method, params))
+    return false;
+
+  result.clear();
+  double msTime = -1.0;   // Process until exit is called
+  _disp.work(msTime);
+
+  if (_connectionState != IDLE || ! parseResponse(result))
+    return false;
+
+  if(XmlRpc::getVerbosity() > 0){ 
+	_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s completed.", method));
+  }
+  _response = "";
+  return true;
+!!!133250.cpp!!!	interpreta(in cmd : std::string) : void
+
 	
 	if(cmd.length() > 0){
 		if( cmd.at(0) == 's'  && cmd.at(1)=='v'){
@@ -124,14 +83,13 @@ void XmlRpcClient::interpreta(std::string cmd){
 					if (espacios ==0){
 						Argsstr = cmd.substr(i+1,cmd.length());	
 					}
-					
 					espacios += 1;
 				}
 			}
 			
-			cmd = cmd.substr(0,cmd.find_first_of(" \n"));
+			cmd = cmd.substr(0,cmd.find(" \n"));
 			XmlRpcValue* noArgs;
-			XmlRpcValue multiargs;
+			XmlRpcValue multiargs;//[espacios];
 			XmlRpcValue result;
 			
 			if (espacios <=1){
@@ -167,18 +125,12 @@ void XmlRpcClient::interpreta(std::string cmd){
 		}
 		else{
 			try{
-				if (cmd.substr(0,cmd.find_first_of(" \n")) == "help"){
-					if (cmd.find("-") != -1){
-						this -> help(cmd.substr(cmd.find("-")+1));
-					}else{
-						this -> help();
-					}					
+				if (cmd == "clhelp"){
+					this -> clhelp();
 				}else if(cmd == "setupConnection"){
 					this -> setupConnection();
 				}else if(cmd == "close"){
 					this -> close();
-				}else if(cmd == "getreporte"){
-					this -> getreporte();
 				}else if(cmd == "setlog"){
 					XmlRpc::setVerbosity(5);
 					_log = new Archivo;
@@ -186,12 +138,6 @@ void XmlRpcClient::interpreta(std::string cmd){
 				}else if(cmd == "exit"){
 					if (XmlRpc::getVerbosity()){
 						_log ->close(_log);
-					}
-					try{
-						XmlRpcValue noArgs,result ;
-						this-> execute("cerrararchivoexterno",noArgs,result);
-					}catch(XmlRpcException ex){
-						std::cout << ex.getMessage() << "\n" ;
 					}
 				}else{
 					throw("Comando no reconocido\n");
@@ -201,70 +147,20 @@ void XmlRpcClient::interpreta(std::string cmd){
 			}
 		}
 	}
-}
-void XmlRpcClient::help(){
-	std::cout << "Comandos ejecutados por el cliente: \n";
+!!!133378.cpp!!!	clhelp() : void
+
 	for (int i = 0; i < comands.size() ; i++){
 		std::cout << comands.at(i) << "\n";
 	}
-	if( _host != "vacio"){
-		std::cout << "Comandos ejecutados por el servidor: (recuerde agregar el prefijo sv a estos comandos, ej.: svcomando1 arg1 arg2)\n";
-		this -> interpreta("svgetcomandos");
-	}else{
-		std::cout << "Conectese al servidor para recibir información de los camandos ejecutados por el servidor\n";
-	}
-	std::cout << "('help' muestra los comandos disponibles, 'help -comando' muestra ayuda relativa a comando\n";
-}
-
-void XmlRpcClient::help(string comando){
-	if (comando=="modomanual"){
-		cout<<"Modo manual(Aprendizaje): Permite al usuario controlar el robot manualmente y almacenar los comandos en un archivo para posterios replicacion"<<endl;
-	}
-	if(comando=="modoautomatico"){
-		cout<<"Modo automatico(Replicacion): Permite al usuario replicar los comandos almacenados en un archivo de texto"<<endl;
-	}
-	if(comando=="turnonport"){
-		cout<<"TurnOnPort: Enciende el puerto serie del robot"<<endl;
-	}
-	if(comando=="turnoffport"){
-		cout<<"TurnOffPort: Apaga el puerto serie del robot"<<endl;
-	}
-	if(comando=="setmotores"){
-		cout<<"SetMotores: Permite al usuario controlar los motores del robot"<<endl;
-	}
-	if(comando=="setposicionlineal"){
-		cout<<"SetPosicionLineal: Permite al usuario establecer una coordenada para un despl. lineal y la velocidad"<<endl;
-	}
-	if(comando=="setangularmotor1"){
-		cout<<"SetAngularMotor1: Permite al usuario establecer un angulo de despl. para el motor1, su velocidad y sentido"<<endl;
-	}
-	if(comando=="setangularmotor2"){
-		cout<<"SetAngularMotor2: Permite al usuario establecer un angulo de despl. para el motor2, su velocidad y sentido"<<endl;
-	}
-	if(comando=="setangularmotor3"){
-		cout<<"SetAngularMotor3: Permite al usuario establecer un angulo de despl. para el motor3, su velocidad y sentido"<<endl;
-	}
-	if(comando=="setpinza"){
-		cout<<"SetPinza: Permite al usuario habilitar o deshabilitar la pinza del robot"<<endl;
-	}
-	if(comando=="reset"){
-		cout<<"Reset: Permite al usuario llevar al robot a su posicion de reposo/origen (HOMING)"<<endl;
-	}
-	if(comando=="estadorobot"){
-		cout<<"EstadoRobot: Permite al usuario conocer el estado de conexion al robot, servidor y numero de ordenes"<<endl;
-	}
-	if(comando=="listarcomandos"){
-		cout<<"ListarComandos: Permite al usuario conocer la lista de comandos disponibles"<<endl;
-	}
-	if(comando=="exit"){
-		cout<<"Exit: Permite al usuario salir de este CLI cliente"<<endl;
-	}
 	
-}
-// Close the owned fd
-void 
-XmlRpcClient::close()
-{
+!!!133506.cpp!!!	getloghandlerf() : Archivo
+
+	return _log;
+!!!133634.cpp!!!	getVerbosity() : int
+
+	return XmlRpc::getVerbosity();
+!!!133762.cpp!!!	close() : void
+
 	if(XmlRpc::getVerbosity() > 0){ 
 		_log -> write(XmlRpcUtil::log(4, "XmlRpcClient::close: fd %d.", getfd()));
 	}
@@ -272,63 +168,7 @@ XmlRpcClient::close()
   _disp.exit();
   _disp.removeSource(this);
   XmlRpcSource::close(_log,XmlRpc::getVerbosity());
-}
-
-
-// Clear the referenced flag even if exceptions or errors occur.
-struct ClearFlagOnExit {
-  ClearFlagOnExit(bool& flag) : _flag(flag) {}
-  ~ClearFlagOnExit() { _flag = false; }
-  bool& _flag;
-};
-
-// Execute the named procedure on the remote server.
-// Params should be an array of the arguments for the method.
-// Returns true if the request was sent and a result received (although the result
-// might be a fault).
-bool 
-XmlRpcClient::execute(const char* method, XmlRpcValue const& params, XmlRpcValue& result)
-{
-	if(XmlRpc::getVerbosity() > 0){ 
-		_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s (_connectionState %d).", method, _connectionState));
-	}
-  // This is not a thread-safe operation, if you want to do multithreading, use separate
-  // clients for each thread. If you want to protect yourself from multiple threads
-  // accessing the same client, replace this code with a real mutex.
-  if (_executing)
-    return false;
-
-  _executing = true;
-  ClearFlagOnExit cf(_executing);
-
-  _sendAttempts = 0;
-  _isFault = false;
-
-  if ( ! setupConnection())
-    return false;
-
-  if ( ! generateRequest(method, params))
-    return false;
-
-  result.clear();
-  double msTime = -1.0;   // Process until exit is called
-  _disp.work(msTime);
-
-  if (_connectionState != IDLE || ! parseResponse(result))
-    return false;
-
-  if(XmlRpc::getVerbosity() > 0){ 
-	_log->write(XmlRpcUtil::log(1, "XmlRpcClient::execute: method %s completed.", method));
-  }
-  _response = "";
-  return true;
-}
-
-// XmlRpcSource interface implementation
-// Handle server responses. Called by the event dispatcher during execute.
-unsigned
-XmlRpcClient::handleEvent(unsigned eventType)
-{
+!!!133890.cpp!!!	handleEvent(in eventType : uint) : uint
   if (eventType == XmlRpcDispatch::Exception)
   {
     if (_connectionState == WRITE_REQUEST && _bytesWritten == 0){
@@ -355,13 +195,8 @@ XmlRpcClient::handleEvent(unsigned eventType)
   // This should probably always ask for Exception events too
   return (_connectionState == WRITE_REQUEST) 
         ? XmlRpcDispatch::WritableEvent : XmlRpcDispatch::ReadableEvent;
-}
+!!!134146.cpp!!!	setupConnection() : bool
 
-
-// Create the socket connection to the server if necessary
-bool 
-XmlRpcClient::setupConnection()
-{
 	
 	if(_host == "vacio"){
 		std::string host;
@@ -370,7 +205,6 @@ XmlRpcClient::setupConnection()
 		std::cin >> host;
 		std::cout << "Ingrese puerto del servidor " ;
 		std::cin >> port;
-		cin.ignore();
 		if(XmlRpc::getVerbosity() > 0){ 
 			_log = new Archivo;
 			_log -> open();
@@ -399,18 +233,13 @@ XmlRpcClient::setupConnection()
   _disp.addSource(this, XmlRpcDispatch::WritableEvent | XmlRpcDispatch::Exception);
 
   return true;
-}
+!!!134274.cpp!!!	doConnect() : bool
 
-
-// Connect to the xmlrpc server
-bool 
-XmlRpcClient::doConnect()
-{
 
   int fd = XmlRpcSocket::socket();
   if (fd < 0)
   {
-	//_host = "vacio";
+	_host = "vacio";
     XmlRpcUtil::error("Error in XmlRpcClient::doConnect: Could not create socket (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
@@ -431,18 +260,13 @@ XmlRpcClient::doConnect()
   if ( ! XmlRpcSocket::connect(fd, _host, _port))
   {
     this->close();
-	//_host = "vacio";
+	_host = "vacio";
     XmlRpcUtil::error("Error in XmlRpcClient::doConnect: Could not connect to server (%s).", XmlRpcSocket::getErrorMsg().c_str());
     return false;
   }
  
   return true;
-}
-
-// Encode the request to call the specified method with the specified parameters into xml
-bool 
-XmlRpcClient::generateRequest(const char* methodName, XmlRpcValue const& params)
-{
+!!!134402.cpp!!!	generateRequest(in methodName : char, in params : XmlRpcValue) : bool
   std::string body = REQUEST_BEGIN;
   body += methodName;
   body += REQUEST_END_METHODNAME;
@@ -476,12 +300,7 @@ XmlRpcClient::generateRequest(const char* methodName, XmlRpcValue const& params)
   }
   _request = header + body;
   return true;
-}
-
-// Prepend http headers
-std::string
-XmlRpcClient::generateHeader(std::string const& body)
-{
+!!!134530.cpp!!!	generateHeader(in body : std::string) : std::string
   std::string header = 
     "POST " + _uri + " HTTP/1.1\r\n"
     "User-Agent: ";
@@ -498,11 +317,7 @@ XmlRpcClient::generateHeader(std::string const& body)
   sprintf(buff,"%d\r\n\r\n", body.size());
 
   return header + buff;
-}
-
-bool 
-XmlRpcClient::writeRequest()
-{
+!!!134658.cpp!!!	writeRequest() : bool
   if (_bytesWritten == 0){
 	  if(XmlRpc::getVerbosity() > 0){ 
 		  _log->write(XmlRpcUtil::log(5, "XmlRpcClient::writeRequest (attempt %d):\n%s\n", _sendAttempts+1, _request.c_str()));
@@ -524,13 +339,7 @@ XmlRpcClient::writeRequest()
     _connectionState = READ_HEADER;
   }
   return true;
-}
-
-
-// Read the header from the response
-bool 
-XmlRpcClient::readHeader()
-{
+!!!134786.cpp!!!	readHeader() : bool
   // Read available data
   if ( ! XmlRpcSocket::nbRead(this->getfd(), _header, &_eof) ||
        (_eof && _header.length() == 0)) {
@@ -602,12 +411,7 @@ XmlRpcClient::readHeader()
   _header = "";   // should parse out any interesting bits from the header (connection, etc)...
   _connectionState = READ_RESPONSE;
   return true;    // Continue monitoring this source
-}
-
-    
-bool 
-XmlRpcClient::readResponse()
-{
+!!!134914.cpp!!!	readResponse() : bool
   // If we dont have the entire response yet, read available data
   if (int(_response.length()) < _contentLength) {
     if ( ! XmlRpcSocket::nbRead(this->getfd(), _response, &_eof)) {
@@ -633,13 +437,7 @@ XmlRpcClient::readResponse()
   _connectionState = IDLE;
 
   return false;    // Stop monitoring this source (causes return from work)
-}
-
-
-// Convert the response xml into a result value
-bool 
-XmlRpcClient::parseResponse(XmlRpcValue& result)
-{
+!!!135042.cpp!!!	parseResponse(inout result : XmlRpcValue) : bool
   // Parse response xml into result
   int offset = 0;
   if ( ! XmlRpcUtil::findTag(METHODRESPONSE_TAG,_response,&offset)) {
@@ -665,5 +463,3 @@ XmlRpcClient::parseResponse(XmlRpcValue& result)
       
   _response = "";
   return result.valid();
-}
-

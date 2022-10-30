@@ -1,0 +1,41 @@
+class XmlRpcSource
+!!!143106.cpp!!!	XmlRpcSource(in fd : int = -1, in deleteOnClose : bool = false)
+
+!!!143234.cpp!!!	~XmlRpcSource()
+
+!!!143874.cpp!!!	close(inout flog : Archivo, in verbosity : int) : void
+
+    if (_fd != -1) {
+		if(verbosity >0){
+			flog->write(XmlRpcUtil::log(2,"XmlRpcSource::close: closing socket %d.", _fd));
+		}
+	  XmlRpcSocket::close(_fd,verbosity);
+		if(verbosity >0){
+			flog->write(XmlRpcUtil::log(2,"XmlRpcSource::close: done closing socket %d.", _fd));
+		}
+      _fd = -1;
+    }
+    if (_deleteOnClose) {
+		if(verbosity > 0 ){
+			flog->write(XmlRpcUtil::log(2,"XmlRpcSource::close: deleting this"));
+		}
+      
+      _deleteOnClose = false;
+      delete this;
+    }
+!!!144002.cpp!!!	close() : void
+
+	 
+	    XmlRpcUtil::log(2,"XmlRpcSource::close: closing socket %d.", _fd);
+		 
+		XmlRpcSocket::close(_fd);
+		  
+		XmlRpcUtil::log(2,"XmlRpcSource::close: done closing socket %d.", _fd);
+		  
+		  _fd = -1;
+	  
+	  if (_deleteOnClose) {
+		  XmlRpcUtil::log(2,"XmlRpcSource::close: deleting this");
+		  _deleteOnClose = false;
+		  delete this;
+	  }

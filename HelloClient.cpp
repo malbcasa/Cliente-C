@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 	std::string cmd;
 	XmlRpcClient* c;
 	c = new XmlRpcClient();
-	c -> clhelp();
+	
 	
 	
 	while(on){

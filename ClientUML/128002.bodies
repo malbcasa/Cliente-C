@@ -1,0 +1,33 @@
+class Archivo
+!!!128002.cpp!!!	set_nom() : void
+
+	 nombre = "log.txt";
+!!!128130.cpp!!!	get_nom() : string
+	
+	return nombre;
+!!!128258.cpp!!!	set_cont(in fname : string) : void
+
+	ofstream fichero(fname);
+	
+	if (!fichero)
+	{
+		cout << "Error al abrir " << nombre; 
+		exit(EXIT_FAILURE);
+	}
+!!!128514.cpp!!!	open() : void
+
+	this->set_nom();
+	_fichero.open(nombre);
+	if (!_fichero)
+	{
+		cout << "Error al abrir " << nombre; 
+		exit(EXIT_FAILURE);
+	}
+	
+!!!128642.cpp!!!	write(in msg : string) : void
+
+	msg.append("\n");
+	_fichero << msg;
+!!!128770.cpp!!!	close(inout fich : Archivo) : void
+
+	fich->_fichero.close();
