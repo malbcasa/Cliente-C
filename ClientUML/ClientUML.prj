@@ -1,6 +1,6 @@
 format 222
 "ClientUML"
-  revision 1
+  revision 4
   modified_by 2 "Mauri"
 
 
@@ -65,184 +65,10 @@ format 222
     activitydiagramsettings
      end
     classdiagram 128002 "Diagrama Clases"
-      classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
+      classdiagramsettings draw_all_relations no show_members_full_definition yes member_max_width 0 end
       size A4
     end
-  end
 
-  package_ref 128130 // XmlRpc
-
-  deploymentview 128002 "Cliente C++"
-    //deployment diagram settings
-    deploymentdiagramsettings
-     end
-    artifact 128002 "Archivo"
-      stereotype "source"
-      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
-#define ${NAMESPACE}_${NAME}_H
-
-${comment}
-${includes}
-${declarations}
-${namespace_start}
-${definition}
-${namespace_end}
-#endif
-"
-      cpp_src "${comment}
-${includes}
-${namespace_start}
-${members}
-${namespace_end}"
-      associated_elems
-	class_ref 128002 // Archivo
-      end
-    end
-
-    artifact 128130 "base64"
-      stereotype "source"
-      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
-#define ${NAMESPACE}_${NAME}_H
-
-${comment}
-${includes}
-${declarations}
-${namespace_start}
-${definition}
-${namespace_end}
-#endif
-"
-      cpp_src "${comment}
-${includes}
-${namespace_start}
-${members}
-${namespace_end}"
-      associated_elems
-	class_ref 128130 // base64
-      end
-    end
-
-    artifact 129666 "main"
-      stereotype "source"
-      cpp_src "int main(int argc, char* argv[])
-{
-	bool on = true;
-	std::string cmd;
-	XmlRpcClient* c;
-	c = new XmlRpcClient();
-	c -> clhelp();
-	
-	
-	while(on){
-		std::cout << \"(esperando comando...)\\n\";
-		std::getline(std::cin,cmd);		
-		if(cmd==\"exit\"){
-			c->interpreta(cmd);
-			on = false;
-			break;
-		}
-		c->interpreta(cmd);
-
-	}
-		
-	
-  return 0;
-}
-"
-      associated_elems
-      end
-    end
-
-    artifact 129794 "ClearFlagOnExit"
-      stereotype "source"
-      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
-#define ${NAMESPACE}_${NAME}_H
-
-${comment}
-${includes}
-${declarations}
-${namespace_start}
-${definition}
-${namespace_end}
-#endif
-"
-      cpp_src "${comment}
-${includes}
-${namespace_start}
-${members}
-${namespace_end}"
-      associated_elems
-	class_ref 131970 // ClearFlagOnExit
-      end
-    end
-
-    artifact 129922 "ListMethods"
-      stereotype "source"
-      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
-#define ${NAMESPACE}_${NAME}_H
-
-${comment}
-${includes}
-${declarations}
-${namespace_start}
-${definition}
-${namespace_end}
-#endif
-"
-      cpp_src "${comment}
-${includes}
-${namespace_start}
-${members}
-${namespace_end}"
-      associated_elems
-	class_ref 132098 // ListMethods
-      end
-    end
-
-    artifact 130050 "MethodHelp"
-      stereotype "source"
-      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
-#define ${NAMESPACE}_${NAME}_H
-
-${comment}
-${includes}
-${declarations}
-${namespace_start}
-${definition}
-${namespace_end}
-#endif
-"
-      cpp_src "${comment}
-${includes}
-${namespace_start}
-${members}
-${namespace_end}"
-      associated_elems
-	class_ref 132226 // MethodHelp
-      end
-    end
-  end
-
-  classview 128130 "Cliente C++"
-    
-    classdiagramsettings member_max_width 0 end
-    
-    classcompositediagramsettings end
-    
-    collaborationdiagramsettings end
-    
-    objectdiagramsettings end
-    
-    objectcompositediagramsettings end
-    
-    sequencediagramsettings end
-    
-    statediagramsettings
-     end
-    
-    
-    activitydiagramsettings
-     end
     class 128002 "Archivo"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
@@ -256,8 +82,242 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
-      attribute 128002 "nombre"
-	private explicit_type "string"
+      classrelation 130306 // <association>
+	relation_ref 129154 // <association>
+      end
+
+      classrelation 130690 // <association>
+	relation 129410 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130690 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130818 // <association>
+      end
+
+      classrelation 133250 // <association>
+	relation 130690 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133250 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133378 // <association>
+      end
+
+      classrelation 133762 // <aggregation>
+	relation_ref 130946 // <aggregation>
+      end
+
+      classrelation 133890 // <aggregation>
+	relation 131074 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133890 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134018 // <aggregation>
+      end
+
+      classrelation 134658 // <aggregation>
+	relation 131458 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134658 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134786 // <aggregation>
+      end
+    end
+
+    class 128130 "winsock2"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 135298 // <association>
+	relation_ref 131714 // <association>
+      end
+
+      classrelation 135554 // <association>
+	relation_ref 131842 // <association>
+      end
+    end
+
+    class 128258 "XmlRpc"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 131586 // <association>
+	relation_ref 129794 // <association>
+      end
+
+      classrelation 132098 // <association>
+	relation_ref 130050 // <association>
+      end
+
+      classrelation 132354 // <aggregation>
+	relation_ref 130178 // <aggregation>
+      end
+
+      classrelation 132610 // <aggregation>
+	relation_ref 130306 // <aggregation>
+      end
+
+      classrelation 132866 // <aggregation>
+	relation_ref 130434 // <aggregation>
+      end
+    end
+
+    class 128386 "XmlRpcClient"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128130 // <association>
+	relation_ref 128002 // <association>
+      end
+
+      classrelation 128258 // <association>
+	relation 128130 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128258 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128386 // <association>
+      end
+
+      classrelation 128514 // <association>
+	relation 128258 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128514 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128642 // <association>
+      end
+
+      classrelation 128898 // <composition>
+	relation_ref 128386 // <composition>
+      end
+
+      classrelation 129026 // <generalisation>
+	relation 128514 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 129026 // <generalisation>
+	  b parent class_ref 128642 // XmlRpcSource
+      end
+
+      classrelation 130050 // <association>
+	relation_ref 129026 // <association>
+      end
+
+      classrelation 132226 // <aggregation>
+	relation 130178 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132226 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132354 // <aggregation>
+      end
+
+      classrelation 133378 // <association>
+	relation_ref 130690 // <association>
+      end
+
+      classrelation 133506 // <generalisation>
+	relation 130818 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 133506 // <generalisation>
+	  b parent class_ref 128002 // Archivo
+      end
+
+      classrelation 133634 // <aggregation>
+	relation 130946 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133634 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133762 // <aggregation>
+      end
+
+      classrelation 134018 // <aggregation>
+	relation_ref 131074 // <aggregation>
+      end
+
+      classrelation 134146 // <aggregation>
+	relation 131202 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134146 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134274 // <aggregation>
+      end
+
+      classrelation 134530 // <aggregation>
+	relation_ref 131330 // <aggregation>
+      end
+
+      classrelation 134786 // <aggregation>
+	relation_ref 131458 // <aggregation>
+      end
+
+      classrelation 135042 // <aggregation>
+	relation_ref 131586 // <aggregation>
+      end
+
+      attribute 128002 "_host"
+	private explicit_type ""
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
 	java_decl ""
@@ -268,8 +328,8 @@ ${inlines}
 	MysqlColumn
       end
 
-      attribute 128130 "contenido"
-	private explicit_type "string"
+      attribute 128130 "_port"
+	private explicit_type ""
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
 	java_decl ""
@@ -280,8 +340,8 @@ ${inlines}
 	MysqlColumn
       end
 
-      attribute 128258 "lineas"
-	private explicit_type "int"
+      attribute 128258 "_log"
+	private explicit_type ""
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
 	java_decl ""
@@ -292,20 +352,8 @@ ${inlines}
 	MysqlColumn
       end
 
-      attribute 128386 "_fichero"
-	private explicit_type "ofstream"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      operation 128002 "set_nom"
-	preserve_cpp_body_indent public explicit_return_type "void"
+      operation 128130 "help"
+	public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
@@ -318,27 +366,13 @@ ${inlines}
 	
       end
 
-      operation 128130 "get_nom"
-	preserve_cpp_body_indent public explicit_return_type "string"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 128258 "set_cont"
-	preserve_cpp_body_indent public explicit_return_type "void"
+      operation 128258 "interpreta"
+	public explicit_return_type ""
 	nparams 1
-	  param in name "fname" explicit_type "string"
+	  param in name "cmd" explicit_type "string"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
   ${body}}
 "
 	
@@ -347,21 +381,24 @@ ${inlines}
 	
       end
 
-      operation 128386 "set_cont"
-	public explicit_return_type "string"
+      operation 128386 "setupConnection"
+	public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
 	
 	
 	
 	
       end
 
-      operation 128514 "open"
-	preserve_cpp_body_indent public explicit_return_type "void"
+      operation 128514 "switchlog"
+	public explicit_return_type ""
 	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract};
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
   ${body}}
@@ -372,11 +409,10 @@ ${inlines}
 	
       end
 
-      operation 128642 "write"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 1
-	  param in name "msg" explicit_type "string"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+      operation 128642 "getreporte"
+	public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
   ${body}}
@@ -388,10 +424,23 @@ ${inlines}
       end
 
       operation 128770 "close"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 1
-	  param inout name "fich" type class_ref 128002 // Archivo
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+	public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 128898 "exit"
+	public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
   ${body}}
@@ -403,706 +452,7 @@ ${inlines}
       end
     end
 
-    class 128130 "base64"
-      visibility package 
-      nformals 2
-      formal name "_E" type "class" explicit_default_value "char"
-        explicit_extends ""
-      formal name "_Tr" type "class" explicit_default_value "std::char_traits<_E>"
-        explicit_extends ""
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment " TEMPLATE CLASS base64_put"
-      class 128258 "byte_t"
-	visibility package stereotype "typedef" explicit_base_type "unsigned char"
-	cpp_decl "${comment}typedef ${type} ${name};
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-      end
-
-      class 128386 "char_type"
-	visibility package stereotype "typedef" explicit_base_type "_E"
-	cpp_decl "${comment}typedef ${type} ${name};
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-      end
-
-      class 128514 "traits_type"
-	visibility package stereotype "typedef" explicit_base_type "_Tr"
-	cpp_decl "${comment}typedef ${type} ${name};
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-      end
-
-      class 128642 "crlf"
-	visibility package stereotype "struct"
-	cpp_decl "${comment}${template}struct ${name}${inherit} {
-${members}};
-${inlines}
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-	operation 128898 "operator ()"
-	  stereotype "template"
-	  const cpp_inline public explicit_return_type "_OI"
-	  nparams 1
-	    param in name "_To" explicit_type "_OI"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			*_To = _Tr::to_char_type('\\r'); ++_To;
-			*_To = _Tr::to_char_type('\\n'); ++_To;
-
-			return (_To);
-		};
-"
-	  nformals 1
-	  formal name "_OI" type "class" explicit_default_value ""
-	    explicit_extends ""
-	  
-	  
-	  
-	  
-	end
-      end
-
-      class 128770 "crlfsp"
-	visibility package stereotype "struct"
-	cpp_decl "${comment}${template}struct ${name}${inherit} {
-${members}};
-${inlines}
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-	operation 129026 "operator ()"
-	  stereotype "template"
-	  const cpp_inline public explicit_return_type "_OI"
-	  nparams 1
-	    param in name "_To" explicit_type "_OI"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			*_To = _Tr::to_char_type('\\r'); ++_To;
-			*_To = _Tr::to_char_type('\\n'); ++_To;
-			*_To = _Tr::to_char_type(' '); ++_To;
-
-			return (_To);
-		};
-"
-	  nformals 1
-	  formal name "_OI" type "class" explicit_default_value ""
-	    explicit_extends ""
-	  
-	  
-	  
-	  
-	end
-      end
-
-      class 128898 "noline"
-	visibility package stereotype "struct"
-	cpp_decl "${comment}${template}struct ${name}${inherit} {
-${members}};
-${inlines}
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-	operation 129154 "operator ()"
-	  stereotype "template"
-	  const cpp_inline public explicit_return_type "_OI"
-	  nparams 1
-	    param in name "_To" explicit_type "_OI"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			return (_To);
-		};
-"
-	  nformals 1
-	  formal name "_OI" type "class" explicit_default_value ""
-	    explicit_extends ""
-	  
-	  
-	  
-	  
-	end
-      end
-
-      class 129026 "three2four"
-	visibility package stereotype "struct"
-	cpp_decl "${comment}${template}struct ${name}${inherit} {
-${members}};
-${inlines}
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-	operation 129282 "zero"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
-			_data[0] = 0;
-			_data[1] = 0;
-			_data[2] = 0;
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 129410 "get_0"
-	  const cpp_inline public return_type class_ref 128258 // byte_t
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
-			return _data[0];
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 129538 "get_1"
-	  const cpp_inline public return_type class_ref 128258 // byte_t
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
-			return _data[1];
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 129666 "get_2"
-	  const cpp_inline public return_type class_ref 128258 // byte_t
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
-			return _data[2];
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 129794 "set_0"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" type class_ref 128258 // byte_t
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[0] = _ch;
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 129922 "set_1"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" type class_ref 128258 // byte_t
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[1] = _ch;
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130050 "set_2"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" type class_ref 128258 // byte_t
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[2] = _ch;
-		};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130178 "b64_0"
-	  const cpp_inline public explicit_return_type "int"
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return (_data[0] & _1111_1100) >> 2;};
-"
-	  
-	  
-	  
-	  
-	  comment " 0000 0000  1111 1111  2222 2222
- xxxx xxxx  xxxx xxxx  xxxx xxxx
- 0000 0011  1111 2222  2233 3333"
-	end
-
-	operation 130306 "b64_1"
-	  const cpp_inline public explicit_return_type "int"
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return ((_data[0] & _0000_0011) << 4) + ((_data[1] & _1111_0000)>>4);};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130434 "b64_2"
-	  const cpp_inline public explicit_return_type "int"
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return ((_data[1] & _0000_1111) << 2) + ((_data[2] & _1100_0000)>>6);};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130562 "b64_3"
-	  const cpp_inline public explicit_return_type "int"
-	  nparams 0
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {return (_data[2] & _0011_1111);};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130690 "b64_0"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" explicit_type "int"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {_data[0] = ((_ch & _0011_1111) << 2) | (_0000_0011 & _data[0]);};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130818 "b64_1"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" explicit_type "int"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[0] = ((_ch & _0011_0000) >> 4) | (_1111_1100 & _data[0]);
-			_data[1] = ((_ch & _0000_1111) << 4) | (_0000_1111 & _data[1]);	};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 130946 "b64_2"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" explicit_type "int"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[1] = ((_ch & _0011_1100) >> 2) | (_1111_0000 & _data[1]);
-			_data[2] = ((_ch & _0000_0011) << 6) | (_0011_1111 & _data[2]);	};
-"
-	  
-	  
-	  
-	  
-	end
-
-	operation 131074 "b64_3"
-	  cpp_inline public explicit_return_type "void"
-	  nparams 1
-	    param in name "_ch" explicit_type "int"
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-			_data[2] = (_ch & _0011_1111) | (_1100_0000 & _data[2]);};
-"
-	  
-	  
-	  
-	  
-	end
-
-	classrelation 128002 // _data (<directional composition>)
-	  relation 128002 *-->
-	    a role_name "_data" multiplicity "[3]" private
-	      cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
-"
-	      classrelation_ref 128002 // _data (<directional composition>)
-	    b parent class_ref 128258 // byte_t
-	end
-      end
-
-      operation 131202 "put"
-	stereotype "template"
-	const cpp_inline public explicit_return_type "_II"
-	nparams 5
-	  param in name "_First" explicit_type "_II"
-	  param in name "_Last" explicit_type "_II"
-	  param in name "_To" explicit_type "_OI"
-	  param inout name "_St" explicit_type "_State"
-	  param in name "_Endl" explicit_type "_Endline"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}, ${t3} & ${p3}${v3}, ${t4} ${p4}${v4}${)}${const}${volatile}${throw}${abstract} {
-		three2four _3to4;
-		int line_octets = 0;
-
-		while(_First != _Last)
-		{
-			_3to4.zero();
-
-			// берём по 3 символа
-			_3to4.set_0(*_First);
-			_First++;
-
-			if(_First == _Last)
-			{
-				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
-				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
-				*_To = _Tr::to_char_type('='); ++_To;
-				*_To = _Tr::to_char_type('='); ++_To;
-				goto __end;
-			}
-
-			_3to4.set_1(*_First);
-			_First++;
-
-			if(_First == _Last)
-			{
-				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
-				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
-				*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_2()]); ++_To;
-				*_To = _Tr::to_char_type('='); ++_To;
-				goto __end;
-			}
-
-			_3to4.set_2(*_First);
-			_First++;
-
-			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_0()]); ++_To;
-			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_1()]); ++_To;
-			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_2()]); ++_To;
-			*_To = _Tr::to_char_type(_base64Chars[_3to4.b64_3()]); ++_To;
-
-			if(line_octets == 17) // base64 позволяет длину строки не более 72 символов
-			{
-				//_To = _Endl(_To);
-        *_To = '\\n'; ++_To;
-				line_octets = 0;
-			}
-			else
-				++line_octets;
-		}
-
-		__end: ;
-
-		return (_First);
-
-	};
-"
-	nformals 4
-	formal name "_II" type "class" explicit_default_value ""
-	  explicit_extends ""
-	formal name "_OI" type "class" explicit_default_value ""
-	  explicit_extends ""
-	formal name "_State" type "class" explicit_default_value ""
-	  explicit_extends ""
-	formal name "_Endline" type "class" explicit_default_value ""
-	  explicit_extends ""
-	
-	
-	
-	
-      end
-
-      operation 131330 "get"
-	stereotype "template"
-	const cpp_inline public explicit_return_type "_II"
-	nparams 4
-	  param in name "_First" explicit_type "_II"
-	  param in name "_Last" explicit_type "_II"
-	  param in name "_To" explicit_type "_OI"
-	  param inout name "_St" explicit_type "_State"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}, ${t3} & ${p3}${v3}${)}${const}${volatile}${throw}${abstract} {
-		three2four _3to4;
-		int _Char;
-
-		while(_First != _Last)
-		{
-
-			// Take octet
-			_3to4.zero();
-
-			// -- 0 --
-			// Search next valid char... 
-			while((_Char =  _getCharType(*_First)) < 0 && _Char == _UNKNOWN_CHAR)
-			{
-				if(++_First == _Last)
-				{
-					_St |= _IOS_FAILBIT|_IOS_EOFBIT; return _First; // unexpected EOF
-				}
-			}
-
-			if(_Char == _EQUAL_CHAR){
-				// Error! First character in octet can't be '='
-				_St |= _IOS_FAILBIT; 
-				return _First; 
-			}
-			else
-				_3to4.b64_0(_Char);
-
-
-			// -- 1 --
-			// Search next valid char... 
-			while(++_First != _Last)
-				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
-					break;
-
-			if(_First == _Last)	{
-				_St |= _IOS_FAILBIT|_IOS_EOFBIT; // unexpected EOF 
-				return _First;
-			}
-
-			if(_Char == _EQUAL_CHAR){
-				// Error! Second character in octet can't be '='
-				_St |= _IOS_FAILBIT; 
-				return _First; 
-			}
-			else
-				_3to4.b64_1(_Char);
-
-
-			// -- 2 --
-			// Search next valid char... 
-			while(++_First != _Last)
-				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
-					break;
-
-			if(_First == _Last)	{
-				// Error! Unexpected EOF. Must be '=' or base64 character
-				_St |= _IOS_FAILBIT|_IOS_EOFBIT; 
-				return _First; 
-			}
-
-			if(_Char == _EQUAL_CHAR){
-				// OK!
-				_3to4.b64_2(0); 
-				_3to4.b64_3(0); 
-
-				// chek for EOF
-				if(++_First == _Last)
-				{
-					// Error! Unexpected EOF. Must be '='. Ignore it.
-					//_St |= _IOS_BADBIT|_IOS_EOFBIT;
-					_St |= _IOS_EOFBIT;
-				}
-				else 
-					if(_getCharType(*_First) != _EQUAL_CHAR)
-					{
-						// Error! Must be '='. Ignore it.
-						//_St |= _IOS_BADBIT;
-					}
-				else
-					++_First; // Skip '='
-
-				// write 1 byte to output
-				*_To = (byte_t) _3to4.get_0();
-				return _First;
-			}
-			else
-				_3to4.b64_2(_Char);
-
-
-			// -- 3 --
-			// Search next valid char... 
-			while(++_First != _Last)
-				if((_Char = _getCharType(*_First)) != _UNKNOWN_CHAR)
-					break;
-
-			if(_First == _Last)	{
-				// Unexpected EOF. It's error. But ignore it.
-				//_St |= _IOS_FAILBIT|_IOS_EOFBIT; 
-					_St |= _IOS_EOFBIT; 
-				
-				return _First; 
-			}
-
-			if(_Char == _EQUAL_CHAR)
-			{
-				// OK!
-				_3to4.b64_3(0); 
-
-				// write to output 2 bytes
-				*_To = (byte_t) _3to4.get_0();
-				*_To = (byte_t) _3to4.get_1();
-
-				++_First; // set position to next character
-
-				return _First;
-			}
-			else
-				_3to4.b64_3(_Char);
-
-
-			// write to output 3 bytes
-			*_To = (byte_t) _3to4.get_0();
-			*_To = (byte_t) _3to4.get_1();
-			*_To = (byte_t) _3to4.get_2();
-
-			++_First;
-			
-
-		} // while(_First != _Last)
-
-		return (_First);
-	};
-"
-	nformals 3
-	formal name "_II" type "class" explicit_default_value ""
-	  explicit_extends ""
-	formal name "_OI" type "class" explicit_default_value ""
-	  explicit_extends ""
-	formal name "_State" type "class" explicit_default_value ""
-	  explicit_extends ""
-	
-	
-	
-	
-      end
-
-      operation 131458 "_getCharType"
-	const cpp_inline protected explicit_return_type "int"
-	nparams 1
-	  param in name "_Ch" explicit_type "int"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
-		if(_base64Chars[62] == _Ch)
-			return 62;
-
-		if(_base64Chars[63] == _Ch)
-			return 63;
-
-		if((_base64Chars[0] <= _Ch) && (_base64Chars[25] >= _Ch))
-			return _Ch - _base64Chars[0];
-
-		if((_base64Chars[26] <= _Ch) && (_base64Chars[51] >= _Ch))
-			return _Ch - _base64Chars[26] + 26;
-
-		if((_base64Chars[52] <= _Ch) && (_base64Chars[61] >= _Ch))
-			return _Ch - _base64Chars[52] + 52;
-
-		if(_Ch == _Tr::to_int_type('='))
-			return _EQUAL_CHAR;
-
-		return _UNKNOWN_CHAR;
-	};
-"
-	
-	
-	
-	
-      end
-    end
-
-    class 131970 "ClearFlagOnExit"
-      visibility package stereotype "struct"
-      cpp_decl "${comment}${template}struct ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment " Clear the referenced flag even if exceptions or errors occur."
-      operation 152834 "ClearFlagOnExit"
-	cpp_inline public explicit_return_type ""
-	nparams 1
-	  param inout name "flag" explicit_type "bool"
-	cpp_decl "    ${comment}${inline}${name}${(}${t0} & ${p0}${v0}${)}${volatile}${throw}${abstract} : _flag(flag) {};
-"
-	
-	
-	
-	
-      end
-
-      operation 152962 "~ClearFlagOnExit"
-	cpp_inline public explicit_return_type ""
-	nparams 0
-	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract} { _flag = false; };
-"
-	
-	
-	
-	
-      end
-
-      attribute 137730 "_flag"
-	public explicit_type "bool"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} & ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-    end
-
-    class 132098 "ListMethods"
+    class 128514 "XmlRpcDispatch"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -1115,55 +465,84 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
-      comment " List all methods available on a server"
-      classrelation 130946 // <generalisation>
-	relation 130946 ---|>
-	  a public
-	    cpp default "${type}"
-	    classrelation_ref 130946 // <generalisation>
-	  b parent class_ref 130690 // XmlRpcServerMethod
+      classrelation 128386 // <association>
+	relation_ref 128130 // <association>
       end
 
-      operation 153090 "ListMethods"
-	cpp_inline public explicit_return_type ""
-	nparams 1
-	  param inout name "s" type class_ref 130562 // XmlRpcServer
-	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : XmlRpcServerMethod(LIST_METHODS, s) {};
+      classrelation 129154 // <association>
+	relation 128642 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	
-	
-	
-	
+	    classrelation_ref 129154 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129282 // <association>
       end
 
-      operation 153218 "execute"
-	cpp_inline public explicit_return_type "void"
-	nparams 2
-	  param inout name "params" type class_ref 129666 // XmlRpcValue
-	  param inout name "result" type class_ref 129666 // XmlRpcValue
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract} {
-    _server->listMethods(result);
-  };
+      classrelation 129410 // <association>
+	relation 128770 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	
-	
-	
-	
+	    classrelation_ref 129410 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129538 // <association>
       end
 
-      operation 153346 "help"
-	cpp_inline public explicit_return_type "std::string"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return std::string(\"List all methods available on a server as an array of strings\"); };
+      classrelation 133122 // <association>
+	relation_ref 130562 // <association>
+      end
+
+      classrelation 134274 // <aggregation>
+	relation_ref 131202 // <aggregation>
+      end
+
+      classrelation 134402 // <aggregation>
+	relation 131330 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	
-	
-	
-	
+	    classrelation_ref 134402 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134530 // <aggregation>
+      end
+
+      classrelation 134914 // <aggregation>
+	relation 131586 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134914 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135042 // <aggregation>
+      end
+
+      classrelation 135170 // <association>
+	relation 131714 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135170 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135298 // <association>
+      end
+
+      classrelation 135810 // <association>
+	relation_ref 131970 // <association>
       end
     end
 
-    class 132226 "MethodHelp"
+    class 128642 "XmlRpcSource"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -1176,61 +555,317 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
-      comment " Retrieve the help string for a named method"
-      classrelation 131074 // <generalisation>
-	relation 131074 ---|>
-	  a public
-	    cpp default "${type}"
-	    classrelation_ref 131074 // <generalisation>
-	  b parent class_ref 130690 // XmlRpcServerMethod
+      classrelation 128642 // <association>
+	relation_ref 128258 // <association>
       end
 
-      operation 153474 "MethodHelp"
-	cpp_inline public explicit_return_type ""
-	nparams 1
-	  param inout name "s" type class_ref 130562 // XmlRpcServer
-	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract} : XmlRpcServerMethod(METHOD_HELP, s) {};
+      classrelation 129282 // <association>
+	relation_ref 128642 // <association>
+      end
+
+      classrelation 130178 // <association>
+	relation 129154 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	
-	
-	
-	
-      end
-
-      operation 153602 "execute"
-	cpp_inline public explicit_return_type "void"
-	nparams 2
-	  param inout name "params" type class_ref 129666 // XmlRpcValue
-	  param inout name "result" type class_ref 129666 // XmlRpcValue
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}, ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract} {
-    if (params[0].getType() != XmlRpcValue::TypeString)
-      throw XmlRpcException(METHOD_HELP + \": Invalid argument type\");
-
-    XmlRpcServerMethod* m = _server->findMethod(params[0]);
-    if ( ! m)
-      throw XmlRpcException(METHOD_HELP + \": Unknown method name\");
-
-    result = m->help();
-  };
+	    classrelation_ref 130178 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	
-	
-	
-	
+	    classrelation_ref 130306 // <association>
+      end
+    end
+
+    class 128770 "XmlRpcSocket"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 129794 // <association>
+	relation_ref 128898 // <association>
       end
 
-      operation 153730 "help"
-	cpp_inline public explicit_return_type "std::string"
+      classrelation 129922 // <association>
+	relation 129026 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129922 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130050 // <association>
+      end
+
+      classrelation 130562 // <association>
+	relation_ref 129282 // <association>
+      end
+
+      classrelation 135426 // <association>
+	relation 131842 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135426 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135554 // <association>
+      end
+    end
+
+    class 128898 "XmlRpcUtil"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 129538 // <association>
+	relation_ref 128770 // <association>
+      end
+
+      classrelation 129666 // <association>
+	relation 128898 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129666 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 129794 // <association>
+      end
+
+      classrelation 130434 // <association>
+	relation 129282 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130434 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130562 // <association>
+      end
+
+      classrelation 130818 // <association>
+	relation_ref 129410 // <association>
+      end
+
+      classrelation 131330 // <association>
+	relation_ref 129666 // <association>
+      end
+
+      classrelation 132994 // <association>
+	relation 130562 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132994 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 133122 // <association>
+      end
+
+      classrelation 135682 // <association>
+	relation 131970 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135682 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 135810 // <association>
+      end
+    end
+
+    class 129026 "XmlRpcValue"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128770 // <composition>
+	relation 128386 *---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 128770 // <composition>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 128898 // <composition>
+      end
+
+      classrelation 130946 // <association>
+	relation 129538 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 130946 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131074 // <association>
+      end
+
+      classrelation 131202 // <association>
+	relation 129666 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131202 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131330 // <association>
+      end
+
+      classrelation 132738 // <aggregation>
+	relation 130434 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132738 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132866 // <aggregation>
+      end
+    end
+
+    class 129154 "XmlRpcException"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 131074 // <association>
+	relation_ref 129538 // <association>
+      end
+
+      classrelation 131842 // <association>
+	relation_ref 129922 // <association>
+      end
+
+      classrelation 132482 // <aggregation>
+	relation 130306 o---
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132482 // <aggregation>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132610 // <aggregation>
+      end
+    end
+
+    class 129282 "HelloClient"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      operation 128002 "main"
+	public explicit_return_type ""
 	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} { return std::string(\"Retrieve the help string for a named method\"); };
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
 "
 	
 	
 	
 	
+      end
+
+      classrelation 128002 // <association>
+	relation 128002 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128002 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 128130 // <association>
+      end
+
+      classrelation 131458 // <association>
+	relation 129794 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131458 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131586 // <association>
+      end
+
+      classrelation 131714 // <association>
+	relation 129922 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131714 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131842 // <association>
+      end
+
+      classrelation 131970 // <association>
+	relation 130050 ----
+	  a role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 131970 // <association>
+	  b role_name "" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 132098 // <association>
       end
     end
   end
-
-  package_ref 128002 // Cliente C++
 end

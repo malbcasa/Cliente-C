@@ -31,7 +31,7 @@ const char XmlRpcClient::PARAM_ETAG[] =  "</param>";
 const char XmlRpcClient::REQUEST_END[] = "</methodCall>\r\n";
 const char XmlRpcClient::METHODRESPONSE_TAG[] = "<methodResponse>";
 const char XmlRpcClient::FAULT_TAG[] = "<fault>";
-const std::vector <std::string> comands{"help","setupConnection","close","exit","setlog","getreporte"};
+const std::vector <std::string> comands{"help","setupConnection","switchlog","getreporte","close","exit"};
 
 
 XmlRpcClient::XmlRpcClient(const char* host, int port, const char* uri/*=0*/)
@@ -91,11 +91,7 @@ void XmlRpcClient::getreporte(){
 	XmlRpcValue noArgs,result;
 	
 	try{
-		this->execute("seteco",noArgs,result);
-	}catch(XmlRpcException ex){
-		std::cout << "Estado de la conexión: Offline\nNo se puede recuperar más información por el momento\n";
-	}
-	if( result1 == "Online"){
+		this->execute("getcomandos",noArgs,result);
 		std::cout << "Estado de la conexión: Online\n";
 		try{
 			std::cout << "Estado robot : ";
@@ -104,12 +100,16 @@ void XmlRpcClient::getreporte(){
 			this -> interpreta("svgetnumordenes");
 			std::cout << "\nLos comandos ejecutados son:\n";
 			this -> interpreta("svgetlistaordenes");
+			
+			
 		}catch(XmlRpcException ex){
 			std::cout << ex.getMessage() << "\n" ;
 			std::cout << "Por el momento no se puede recuperar más información";
-		}	
+		}
+	}catch(XmlRpcException ex){
+		std::cout << "Estado de la conexión: Offline\nNo se puede recuperar más información por el momento\n";
 	}
-	
+		
 }
 void XmlRpcClient::interpreta(std::string cmd){
 	
@@ -179,10 +179,16 @@ void XmlRpcClient::interpreta(std::string cmd){
 					this -> close();
 				}else if(cmd == "getreporte"){
 					this -> getreporte();
-				}else if(cmd == "setlog"){
-					XmlRpc::setVerbosity(5);
-					_log = new Archivo;
-					_log -> open();
+				}else if(cmd == "switchlog"){
+					if (this->getVerbosity() == 0){
+						XmlRpc::setVerbosity(5);
+						_log = new Archivo;
+						_log -> open();
+						std::cout << "Log Activado\n";
+					}else if(this->getVerbosity() == 5){
+						XmlRpc::setVerbosity(0);
+						std::cout << "Log Desactivado\n";
+					}
 				}else if(cmd == "exit"){
 					if (XmlRpc::getVerbosity()){
 						_log ->close(_log);
